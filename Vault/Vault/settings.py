@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     # Custom Apps
     'FileManager',
     'UserManager',
-    'NetworkShareManager',
+    'Admin',
 
     # Imported Apps
     'bootstrap4',
