@@ -20,5 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('UserManager.urls')),
     path('files/', include('FileManager.urls')),
-    path('network_shares/', include('NetworkShareManager.urls'))
+    path('network_shares/', include('NetworkShareManager.urls')),
 ]
