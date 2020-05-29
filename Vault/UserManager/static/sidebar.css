@@ -1,0 +1,53 @@
+nav {
+    border-right: 1px solid #00B2FF;
+    height: 100vh;
+}
+
+nav .vault_links {
+    border-top: 1px solid #00B2FF;
+    margin-top: 2em;
+    padding-top: 2em;
+}
+
+nav .sidebar_header {
+    margin-top: 1em;
+    margin-left: 2em;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+nav .sidebar_header img {
+    width: 6em;
+    height: 6em;
+}
+
+nav .sidebar_header .personal_info {
+    padding-left: 0.5em;
+    padding-top: 1em;
+}
+
+nav .sidebar_header .personal_info .username {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+nav .sidebar_link {
+    padding-left: 2em;
+    padding-right: 1em;
+    color: #00B2FF;
+}
+
+nav .sidebar_link i {
+    width: 100px;
+    height: 100px;
+    align-self: center;
+}
+
+nav .sidebar_link a {
+    color: #00B2FF;
+    font-size: 25px;
+    position: relative;
+    top: -0.5em;
+    left: -1em;
+}

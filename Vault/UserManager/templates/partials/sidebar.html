@@ -1,19 +1,38 @@
+{% load static %}
 {% load bootstrap4 %}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
+{% load fontawesome_5 %}
+
+<link rel="stylesheet" href="{% static 'sidebar.css' %}">
 
 <nav id="sidebar">
-    <div class="sidebar-header">
-        <img src="https://dummyimage.com/6=50x50/0011ff/000000.png&text=Dummy+Image" alt="">
+    <div class="sidebar_header">
+        <img src="{% static 'images/user_placeholder.jpg' %}" alt="">
+        <div class="personal_info">
+            <p class="username">CurrentUsername</p>
+            <p class"=email">CurrentUserEmail</p>
+        </div>
     </div>
 
-    <ul class="list-unstyled components">
-        <p>Dummy Heading</p>
-        <li>
-            <a href="#">Portfolio</a>
+    <ul class="list-unstyled components vault_links">
+        <li class="sidebar_link">
+            {% fa5_icon 'folder' 'far' size="fa-4x" %}
+            <a href="#">Personal Vault</a>
         </li>
-        <li>
-            <a href="#">Contact</a>
+        <li class="sidebar_link">
+            {% fa5_icon 'folder' 'far' size="fa-4x" %}
+            <a href="#">Department Vault</a>
+        </li>
+        <li class="sidebar_link">
+            {% fa5_icon 'file' 'far' size="fa-4x" %}
+            <a href="#">Dangling Files</a>
+        </li>
+        <li class="sidebar_link">
+            {% fa5_icon 'users' 'fas' size="fa-4x" %}
+            <a href="#">User Management</a>
+        </li>
+        <li class="sidebar_link">
+            {% fa5_icon 'database' 'fas' size="fa-4x" %}
+            <a href="#">Server Management</a>
         </li>
     </ul>
 </nav>
