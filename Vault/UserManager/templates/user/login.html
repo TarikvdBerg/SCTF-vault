@@ -8,9 +8,10 @@
 </head>
 <body>
   <div>
-    <form action="oof" method="post">
-      <input id="user_username" type="text" name="username" value="Username">
-      <input id="user_password" type="text" name="password" value="Password">
+    <form method="post">
+      {% csrf_token %}
+      <input id="user_username" type="text" name="username" placeholder="Username">
+      <input id="user_password" type="password" name="password" placeholder="Password">
       <input type="submit" value="Login">
     </form>
   </div>
