@@ -31,9 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Custom Apps
     'FileManager',
     'UserManager',
     'NetworkShareManager',
+
+    # Imported Apps
+    'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
