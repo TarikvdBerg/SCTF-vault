@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-  {% load bootstrap4 %}
-  {% bootstrap_css %}
-  {% bootstrap_javascript jquery='full' %}
-  <title>Login Page</title>
-</head>
-<body>
-  <div>
-    <form method="post">
-      {% csrf_token %}
-      <input id="user_username" type="text" name="username" placeholder="Username">
-      <input id="user_password" type="password" name="password" placeholder="Password">
-      <input type="submit" value="Login">
-    </form>
-  </div>
-</body>
-</html>
+{% extends "core.html" %}
+
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block body %}
+<div>
+  <form method="post">
+    {% csrf_token %}
+    
+    {% bootstrap_form_errors login_form %}
+    {% bootstrap_form login_form %}
+    {% bootstrap_button "Log In" button_type="submit" %}
+  </form>
+</div>
+
+{% endblock body %}
