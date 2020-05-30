@@ -1,0 +1,74 @@
+{% extends 'core.html' %}
+
+{% load static %}
+{% load bootstrap4 %}
+{% load fontawesome_5 %}
+
+
+{% block body %}
+
+<link rel="stylesheet" href="{% static 'css/admin_overview.css' %}">
+
+<div class="wrapper">
+    {% include 'partials/sidebar.html' %}
+
+    <div class="admin_section">
+        <div class="server_view">
+            <div class="view_header">
+                <h1>Server Overview</h1>
+                <a href="#">See All Servers</a>
+            </div>
+
+            <div class="server_container">
+                <div class="server">
+                    {% fa5_icon 'database' 'fas' size="fa-4x" %}
+                    <div class="server_info">
+                        <p class="server_name">Server01</p>
+                        <p class="server_storage">7TB/10TB</p>
+                    </div>
+                </div>
+
+                <div class="server">
+                    {% fa5_icon 'database' 'fas' size="fa-4x" %}
+                    <div class="server_info">
+                        <p class="server_name">Server01</p>
+                        <p class="server_storage">7TB/10TB</p>
+                    </div>
+                </div>
+
+                <div class="server">
+                    {% fa5_icon 'database' 'fas' size="fa-4x" %}
+                    <div class="server_info">
+                        <p class="server_name">Server01</p>
+                        <p class="server_storage">7TB/10TB</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="log_view">
+            <div class="view_header">
+                <h1>Latest Warnings</h1>
+                <a href="#">See All Log Messages</a>
+            </div>
+
+            <table class="log_table">
+                <tr>
+                    <th>Activity Type {% fa5_icon 'chevron-down' 'fa' %} </th>
+                    <th>Message {% fa5_icon 'chevron-down' 'fa' %}</th>
+                    <th>Timestamp {% fa5_icon 'chevron-down' 'fa' %}</th>
+                    <th>Warning Level {% fa5_icon 'chevron-down' 'fa' %}</th>
+                </tr>
+
+                <tr>
+                    <td>User Created</td>
+                    <td>Administration User Has Been Made</td>
+                    <td>Now</td>
+                    <td>No Warning All Good</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

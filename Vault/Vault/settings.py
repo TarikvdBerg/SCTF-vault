@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     # Imported Apps
     'bootstrap4',
     'fontawesome_5',
+
+    # Django Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
