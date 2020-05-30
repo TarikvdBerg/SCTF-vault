@@ -84,15 +84,29 @@
     font-weight: bold;
 }
 
-table {
-    width: 100%;
+.log_view table {
+    width: 100%
 }
 
-table tr {
-    margin: 0.2em 1em;
+.log_view table th {
+    color: #00B2FF; 
+    padding-bottom: 15px;
 }
 
-table th {
-    color: #00B2FF;
-    font-size: 20px;
+.log_view table tr {
+    border: 1px solid white;
+}
+
+.log_view table tr:nth-child(2n) {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.log_view table td {
+    padding: 5px;
+}
+
+.log_view table tr:not(:first-child):hover {
+    background-color: #00B2FF;
+    border-radius: 5px;
+    color: white;
 }
