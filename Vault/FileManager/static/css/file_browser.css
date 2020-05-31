@@ -1,0 +1,44 @@
+#file_manager {
+    margin-left: 2em;
+    margin-top: 2em;
+
+    width: 75%;
+}
+
+#file_manager i {
+    color: #00B2FF;
+}
+
+#file_manager #hotbar {
+    font-size: 20px;
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid #00B2FF;
+    margin-bottom: 2em;
+}
+
+#file_manager #hotbar #filepath {
+    display: flex;
+    flex-direction: row;
+}
+
+#file_manager #hotbar #filepath i {
+    margin-right: 1em;
+}
+
+#file_manager #hotbar #actions,.action {
+    display: flex;
+    flex-direction: row;
+    align-content: center center;
+}
+
+#file_manager #hotbar .action {
+    margin-right: 1em;
+}
+
+#file_manager #hotbar .action i {
+    margin-right: 0.1em;
+}
