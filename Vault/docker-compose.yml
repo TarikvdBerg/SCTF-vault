@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+    vault:
+        build: .
+        image: sctf_vault
+        expose:
+            - 8000
+        environment: 
+            - DOCKER=1
+            - POSTGRES_DB=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=DevelopPostgres
+        depends_on: 
+            - db
+        command: sh entrypoint.sh
+        volumes:
+            - ".:/code"
+            - static_volume:/code/static
+
+    db:
+        image: postgres
+        environment:
+            - POSTGRES_DB=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=DevelopPostgres
+        volumes:
+            - postgres_data:/var/lib/postgresql/data/
+
+    nginx:
+        build: ./nginx
+        ports:
+            - 1337:80
+        depends_on:
+            - vault
+        volumes:
+            - static_volume:/static
+
+volumes:
+    postgres_data:
+    static_volume:
