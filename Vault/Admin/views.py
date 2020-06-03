@@ -6,16 +6,11 @@ from django.contrib.auth.models import User
 class AdminOverview(TemplateView, LoginRequiredMixin):
     template_name = "admin/overview.html"
 
-<<<<<<< HEAD
-class ShareOverview(TemplateView, LoginRequiredMixin):
-    template_name = "admin/shares.html"
-=======
 class DanglingOverview(TemplateView, LoginRequiredMixin):
     template_name = "admin/dangling_file_overview.html"
 
-class NetworkShareOverview(TemplateView, LoginRequiredMixin):
+class ShareOverview(TemplateView, LoginRequiredMixin):
     template_name = "admin/network_shares.html"
->>>>>>> 34b0a10becad235bead5db30a21b6e62acc3939e
 
 class AddShare(TemplateView, LoginRequiredMixin):
     template_name = "admin/add_share.html"

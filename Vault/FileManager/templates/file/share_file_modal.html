@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load bootstrap4 %}
+  {% load static %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery='full' %}
+  {% load fontawesome_5 %}
+
+  <title>Share File Page</title>
+</head>
+<body>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ShareFileModal">
+    Share File
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="ShareFileModal" tabindex="-1" role="dialog" aria-labelledby="FileShareModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="FileShareLabel">Share File</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            {% fa5_icon 'users' 'fas' size="fa-4x" %}
+            <input type="text" placeholder="Search users...">
+          {{form.SearchUser}}
+          </div>
+          <div class="form-group col-md-6">
+          </div>
+          <div class="form-group col-md-6">
+            Jan Willem
+            {{form.UserMatch}}
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> 
+        <button type="button" class="btn btn-primary">Share</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
