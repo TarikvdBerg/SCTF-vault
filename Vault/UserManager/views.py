@@ -47,7 +47,7 @@ class RegisterView(TemplateView):
 class AccountInfoView(TemplateView):
     template_name = "user/user_account_overview.html"
 
-class ViewUsersView(ListView, LoginRequiredMixin):
+class ViewUsersView(TemplateView, LoginRequiredMixin):
     model = User
     template_name = "user/list_view.html"
 
