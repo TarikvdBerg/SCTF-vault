@@ -1,0 +1,72 @@
+{% load static %}
+{% load fontawesome_5 %}
+
+<link rel="stylesheet" href="{% static 'css/dangling_file_browser.css' %}">
+<div id="file_manager">
+    <div id="hotbar">
+        <div id="filepath">
+            {% fa5_icon 'sitemap' 'fas' %}
+            <p>/user_vault/folder/</p>
+        </div>
+
+        <div id="actions">
+            <a href="#" class="action">
+                {% fa5_icon 'download' 'fas' %}
+                <p>Download</p>
+            </a>
+            <a href="#" class="action">
+                {% fa5_icon 'info' 'fas' %}
+                <p>Info</p>
+            </a>
+            <a href="#" class="action">
+                {% fa5_icon 'edit' 'fas' %}
+                <p>Edit</p>
+            </a>
+            <a href="#" class="action">
+                {% fa5_icon 'trash-alt' 'fas' %}
+                <p>Delete</p>
+            </a>
+        </div>
+
+    </div>
+
+    <div id="browser">
+        <table>
+            <tr>
+                <th></th>
+                <th>Name {% fa5_icon 'chevron-down' 'fa' %}</th>
+                <th>Last Modified {% fa5_icon 'chevron-down' 'fa' %}</th>
+                <th>Type {% fa5_icon 'chevron-down' 'fa' %}</th>
+                <th>Size {% fa5_icon 'chevron-down' 'fa' %}</th>
+                <th>Last Modified By {% fa5_icon 'chevron-down' 'fa' %}</th>
+            </tr>
+
+            <tr>
+                <td>{% fa5_icon 'folder' 'far' size='fa-3x' %}</td>
+                <td>..</td>
+                <td>-</td>
+                <td>Folder</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+
+            <tr>
+                <td>{% fa5_icon 'folder' 'far' size='fa-3x' %}</td>
+                <td>Homework</td>
+                <td>30-05-2020 10:45</td>
+                <td>Folder</td>
+                <td>2,5TB</td>
+                <td>John Doe</td>
+            </tr>
+
+            <tr>
+                <td>{% fa5_icon 'file' 'far' size='fa-3x' %}</td>
+                <td>Secret Links.xlsx</td>
+                <td>30-05-2020 10:50</td>
+                <td>File</td>
+                <td>2MB</td>
+                <td>John Doe</td>
+            </tr>
+        </table>
+    </div>
+</div>

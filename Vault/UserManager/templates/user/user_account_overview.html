@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load bootstrap4 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery='full' %}
+
+  <title>Account Information</title>
+</head>
+<body>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
+  Account Information
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addUserModalLabel">Account Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            First name
+            {{form.firstname}}
+          </div>
+          <div class="form-group col-md-12">
+            Last name
+            {{form.lastname}}
+          </div>
+          <div class="form-group col-md-12">
+            Mail address
+            {{form.mailaddress}}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  data-dismiss="modal" aria-label="Close">Cancel</button>
+        <button type="button" class="btn btn-primary"  data-dismiss="modal" aria-label="Close">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

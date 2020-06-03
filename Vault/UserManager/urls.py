@@ -11,5 +11,6 @@ urlpatterns = [
     path('edit', EditSingleUserView.as_view()),
     #path('edit/{user_id}/', EditSingleUserView.as_view()),
     path('inactivate/{user_id}', InactivateUserView.as_view()),
-    path('department/{deparment_id}', DepartmentUserOverview.as_view())
+    path('department/{deparment_id}', DepartmentUserOverview.as_view()),
+    path('account_overview', AccountInfoView.as_view())
 ]
