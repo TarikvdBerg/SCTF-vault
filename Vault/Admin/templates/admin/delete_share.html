@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load bootstrap4 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery='full' %}
+
+  <title>Delete Share Page</title>
+</head>
+<body>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddShareModal">
+Delete Share
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="DeleteShareModal" tabindex="-1" role="dialog" aria-labelledby="DeleteShareModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="AddShareModalLabel">Delete Share</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            Share Name
+          </div>
+             <div class="form-group col-md-6">
+            Share 54
+            {{form.ShareName}}
+          </div>
+          <div class="form-group col-md-6">
+            Address
+          </div>
+            <div class="form-group col-md-6">
+                nfs://10.40.40.21
+                {{form.Address}}
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Delete Share</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

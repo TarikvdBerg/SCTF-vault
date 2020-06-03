@@ -6,17 +6,17 @@ from django.contrib.auth.models import User
 class AdminOverview(TemplateView, LoginRequiredMixin):
     template_name = "admin/overview.html"
 
-class NetworkShareOverview(TemplateView, LoginRequiredMixin):
-    template_name = "admin/network_shares.html"
+class ShareOverview(TemplateView, LoginRequiredMixin):
+    template_name = "admin/shares.html"
 
-class AddNetworkShare(TemplateView, LoginRequiredMixin):
-    template_name = "admin/add_network_share.html"
+class AddShare(TemplateView, LoginRequiredMixin):
+    template_name = "admin/add_share.html"
 
-class EditNetworkShare(TemplateView, LoginRequiredMixin):
-    template_name = "admin/edit_network_share_modal.html"
+class EditShare(TemplateView, LoginRequiredMixin):
+    template_name = "admin/edit_share.html"
 
-class DeleteNetworkShare(TemplateView, LoginRequiredMixin):
-    template_name = "admin/delete_network_share_modal.html"
+class DeleteShare(TemplateView, LoginRequiredMixin):
+    template_name = "admin/delete_share.html"
 
 class LogMessageOverview(TemplateView, LoginRequiredMixin):
     template_name = "admin/log_message_overview.html"
