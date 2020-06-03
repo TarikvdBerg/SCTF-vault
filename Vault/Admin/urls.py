@@ -9,4 +9,5 @@ urlpatterns = [
     path('network_shares/delete/{network_share_id}/', DeleteNetworkShare.as_view()),
     path('log_messages/', LogMessageOverview.as_view()),
     path('log_message/{log_message_id}/', SpecificLogmessageOverview.as_view()),
+    path('danglingfiles/', DanglingOverview.as_view()),
 ]

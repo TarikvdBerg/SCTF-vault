@@ -26,13 +26,13 @@ class LoginView(TemplateView):
         if username == None or password == None:
             logger.debug("Authentication attempt with empty username/password")
             return HttpResponse("Wun is empty")
-        
+
         logger.debug(f"Authentication attempt for {username}")
 
         user = authenticate(request, username=username, password=password)
         if user is None:
             return render(request, 'user/login.html', {'login_form': AuthenticationForm(request.POST)})
-        
+
         login(request, user)
         return redirect("/files/")
 
@@ -43,6 +43,9 @@ class LoginView(TemplateView):
 
 class RegisterView(TemplateView):
     template_name = "user/register.html"
+
+class AccountInfoView(TemplateView):
+    template_name = "user/user_account_overview.html"
 
 class ViewUsersView(ListView, LoginRequiredMixin):
     model = User
@@ -74,4 +77,3 @@ class InactivateUserView(UpdateView, LoginRequiredMixin):
 class DepartmentUserOverview(ListView, LoginRequiredMixin):
     model = Group
     template_name = "user/department_list_view.html"
-
