@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class addUserForm(forms.Form):
     firstName = forms.CharField(label='First Name', max_length=100, widget=forms.TextInput(attrs={'class':'form-controll','type':'text',
@@ -27,4 +29,3 @@ class editUserForm(forms.Form):
         'class': 'form-controll', 'type': 'text', 'placeholder': 'Temp Password'}))
     email = forms.EmailField(label='email', max_length=100, widget=forms.EmailInput(
         attrs={'class':'form-controll','type':'email', 'placeholder':'johndoe@contoso.com'}))
-

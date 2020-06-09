@@ -13,6 +13,7 @@ from django.shortcuts import HttpResponse
 from .forms import addUserForm
 from django.http import HttpResponseRedirect
 
+
 logger = logging.getLogger(__name__)
 
 # Create your views here.
@@ -56,6 +57,21 @@ class ViewSingleUserView(TemplateView, LoginRequiredMixin):
 
 class AddSingleUserView(TemplateView, LoginRequiredMixin):
     template_name = "user/add_user.html"
+
+
+    def create_user(self, request):
+        if request.method == 'POST':
+            form = addUserForm(request.POST, request.FILES)
+            if form.is_valid():
+                print(form)
+                form.save()
+                user = authenticate(firstName=firstName, lastName=lastName, temp_password=temp_password)
+                login(request, user)
+                return HttpResponseRedirect('add')
+        else:
+            form = addUserForm(request.POST)
+        return render(request, 'user/add_user.html', {'form': form})
+
     # def create_user(self, request):
     #     if request.method == 'POST':
     #         form = addUserForm(request.POST, request.FILES)
