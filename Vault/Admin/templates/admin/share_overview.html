@@ -1,0 +1,33 @@
+{% extends "core.html" %}
+
+{% load static %}
+{% load bootstrap4 %}
+{% load fontawesome_5 %}
+
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/admin_overview.css' %}">
+<div class="wrapper">
+    {% include "partials/sidebar.html" %}
+
+    <div class="server_view">
+        <div class="view_header">
+            <h1>Server Overview</h1>
+        </div>
+
+        <div class="server_container">
+            {% for server in servers %}
+            <div class="server">
+                {% fa5_icon 'database' 'fas' size="fa-4x" %}
+                <div class="server_info">
+                    <p class="server_name">{{ server.server_name }}</p>
+                    <p class="server_storage">{{server.used_storage_gb}}GB/{{server.total_storage_gb}}GB</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+{% endblock body %}

@@ -18,10 +18,21 @@ class DanglingOverview(TemplateView, LoginRequiredMixin):
     template_name = "admin/dangling_file_overview.html"
 
 class ShareOverview(TemplateView, LoginRequiredMixin):
-    template_name = "admin/network_shares.html"
+    template_name = "admin/share_overview.html"
 
-class AddShare(TemplateView, LoginRequiredMixin):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["servers"] = Share.objects.all()
+        return context
+    
+
+class AddShare(CreateView, LoginRequiredMixin):
     template_name = "admin/add_share.html"
+    model = Share
+    fields = ['server_name', 'directory']
+
+    def get_success_url(self):
+        return "/admin/shares/"
 
 class EditShare(TemplateView, LoginRequiredMixin):
     template_name = "admin/edit_share.html"

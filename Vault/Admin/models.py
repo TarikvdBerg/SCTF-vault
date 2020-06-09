@@ -12,9 +12,9 @@ class Share(models.Model):
     server_name = models.CharField(max_length=255)
     directory = models.TextField()
 
-    total_storage = models.BigIntegerField()
-    used_storage = models.BigIntegerField()
-    free_storage = models.BigIntegerField()
+    total_storage = models.BigIntegerField(default=0)
+    used_storage = models.BigIntegerField(default=0)
+    free_storage = models.BigIntegerField(default=0)
 
     @property
     def total_storage_gb(self):
