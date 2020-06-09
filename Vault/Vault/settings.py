@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Imported Apps
     'bootstrap4',
     'fontawesome_5',
+    'django_crontab',
 
     # Django Apps
     'django.contrib.admin',
@@ -145,3 +146,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+CRONJOBS = [
+    ('*/5 * * * *', 'Admin.cron.UpdateShareStorage')
+]

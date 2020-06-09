@@ -8,8 +8,6 @@ from FileManager.models import File
 
 
 class Command(BaseCommand):
-    help = 'Closes the specified poll for voting'
-
     def add_arguments(self, parser):
         parser.add_argument('share_name', type=str)
 

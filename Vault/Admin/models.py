@@ -2,6 +2,7 @@ import json
 import uuid
 
 from django.db import models
+import shutil
 
 
 # Create your models here.
@@ -27,6 +28,9 @@ class Share(models.Model):
     def storagePercentageUsed(self):        
         # Caclulate storage percentage used
         return 0;
+
+    def updateAvailableStorage(self):
+        self.total_storage, self.used_storage, self.free_storage = shutil.disk_usage(self.directory)
 
 class LogMessage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

@@ -3,6 +3,7 @@
 Django==3.0.6
 django-bootstrap4==1.1.1
 django-fontawesome-5==1.0.18
+django-crontab==0.7.1
 
 # Prod Only
 psycopg2==2.8.5
