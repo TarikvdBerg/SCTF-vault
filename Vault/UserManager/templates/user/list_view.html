@@ -1,24 +1,29 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    {% load static %}
     {% load bootstrap4 %}
-  {% bootstrap_css %}
-  {% bootstrap_javascript jquery='full' %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    {% load fontawesome_5 %}
+
     <meta charset="UTF-8">
     <title>User management</title>
 
 </head>
 <body>
 <nav class="navbar navbar-light navbar-expand-lg justify-content-right" style="background-color: white;">
-  <span class="navbar-brand mb-0 h1">User Management</span>
-     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <span class="navbar-brand mb-0 h1">User Management</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-fw fa-info-circle"></i>Info</a>
+                <a class="nav-link" href="#">{% fa5_icon 'download' 'fa' %}Info</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa fa-fw fa-edit"></i>Edit</a>
@@ -39,30 +44,30 @@
 <hr color="#00B2FF">
 
 <table id="userTable" class="table table-hover">
-  <thead>
+    <thead>
     <tr>
-      <th class="w-10" scope="col">Name</th>
-      <th class="w-10" scope="col">Department</th>
-      <th class="w-10" scope="col">Status</th>
-   </tr>
-  </thead>
-  <tbody>
+        <th class="w-10" scope="col">Name</th>
+        <th class="w-10" scope="col">Department</th>
+        <th class="w-10" scope="col">Status</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr>
-      <td>Jan Willem</td>
-      <td>HR</td>
+        <td>Jan Willem</td>
+        <td>HR</td>
         <td>Active</td>
     </tr>
     <tr>
-     <td>Willem Alexander</td>
-      <td>IT</td>
+        <td>Willem Alexander</td>
+        <td>IT</td>
         <td>inactive</td>
 
-  </tbody>
+    </tbody>
 </table>
 <script>
-    $(document).ready(function() {
-  $('#userTable').DataTable();
-});
+    $(document).ready(function () {
+        $('#userTable').DataTable();
+    });
 </script>
 </body>
 </html>

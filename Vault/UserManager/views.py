@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User, Group
 import logging
@@ -55,34 +55,17 @@ class ViewUsersView(TemplateView, LoginRequiredMixin):
 class ViewSingleUserView(TemplateView, LoginRequiredMixin):
     template_name = "user/single_user.html"
 
-class AddSingleUserView(TemplateView, LoginRequiredMixin):
+class AddSingleUserView(FormView):
+    model = User
     template_name = "user/add_user.html"
+    form_class = addUserForm
+    success_url = '/add'
 
-
-    def create_user(self, request):
-        if request.method == 'POST':
-            form = addUserForm(request.POST, request.FILES)
-            if form.is_valid():
-                print(form)
-                form.save()
-                user = authenticate(firstName=firstName, lastName=lastName, temp_password=temp_password)
-                login(request, user)
-                return HttpResponseRedirect('add')
-        else:
-            form = addUserForm(request.POST)
-        return render(request, 'user/add_user.html', {'form': form})
-
-    # def create_user(self, request):
-    #     if request.method == 'POST':
-    #         form = addUserForm(request.POST, request.FILES)
-    #         if form.is_valid():
-    #             cd = form.changed_data
-    #
-    #         return HttpResponseRedirect('add')
-    #
-    #     else:
-    #         form = addUserForm
-    #     return render(request, 'user/add_user.html', context=form)
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        form.send_email()
+        return super().form_valid(form)
 
 class EditSingleUserView(TemplateView, LoginRequiredMixin):
     template_name = "user/edit_user.html"

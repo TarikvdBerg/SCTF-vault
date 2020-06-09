@@ -18,6 +18,9 @@ class UploadFileModalView(TemplateView, LoginRequiredMixin):
 class ShareFileModalView(TemplateView, LoginRequiredMixin):
     template_name = "file/share_file_modal.html"
 
+class SharedFilesView(TemplateView, LoginRequiredMixin):
+    template_name = "file/shared_files.html"
+
 class WhoSharedWithView(ListView, LoginRequiredMixin):
     model = User
     template_name = "file/who_shared_with_modal.html"

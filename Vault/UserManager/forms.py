@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class addUserForm(forms.Form):
+    name = forms.CharField(max_length=10)
     firstName = forms.CharField(label='First Name', max_length=100, widget=forms.TextInput(attrs={'class':'form-controll','type':'text',
                                                                                                   'placeholder':'First Name'}))
     lastName = forms.CharField(label='Last Name', max_length=100,
