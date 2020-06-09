@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import shutil
@@ -32,6 +33,34 @@ class Share(models.Model):
 
     def updateAvailableStorage(self):
         self.total_storage, self.used_storage, self.free_storage = shutil.disk_usage(self.directory)
+
+    """
+    ReportFiles builds a list of files that are contained within the share, it outputs a list of
+    dictionaries containing both the ID and hash of the file in question. This can be used to
+    review if any of the files have been lost but are still stored on disk
+    """    
+    def reportFiles(self):
+        file_set = []
+        
+        for root, dirs, files in os.walk(self.directory):
+            for name in files:
+                if name == "control": continue
+
+                with open(root+name, 'r') as f:
+                    data = f.read()
+
+                    fhash = hashlib.sha1(data.encode()).hexdigest()
+                    print(fhash)
+                    file_set.append(
+                        {
+                            "id": name,
+                            "hash": fhash
+                        }
+                    )
+        return file_set
+
+
+
 
 class LogMessage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
