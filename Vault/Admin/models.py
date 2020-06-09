@@ -9,9 +9,19 @@ class Share(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     server_name = models.CharField(max_length=255)
-    address = models.GenericIPAddressField()
+    directory = models.TextField()
+
     total_storage = models.BigIntegerField()
     used_storage = models.BigIntegerField()
+    free_storage = models.BigIntegerField()
+
+    @property
+    def total_storage_gb(self):
+        return int(self.total_storage / (1024**3) * 100) / 100
+
+    @property
+    def used_storage_gb(self):
+        return int(self.used_storage / (1024**3) * 100) / 100
 
     @property
     def storagePercentageUsed(self):        
@@ -72,4 +82,4 @@ class LogMessage(models.Model):
     
     def getFormatedMessage(self):
         js = json.loads(self.metadata)
-        return self.message_format.format(js)
+        return self.message_format.format(*js)

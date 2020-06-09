@@ -5,6 +5,7 @@ from django.contrib.contenttypes.fields import (GenericForeignKey,
                                                 GenericRelation)
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from Admin.models import Share
 
 
 # Create your models here.
@@ -48,8 +49,6 @@ class Folder(UploadsMetaData):
 
 class File(UploadsMetaData):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
-    file = models.FileField()
 
     parent_folder = models.ForeignKey(Folder, on_delete=models.CASCADE)
     
