@@ -1,8 +1,9 @@
 import json
+import os
+import shutil
 import uuid
 
 from django.db import models
-import shutil
 
 
 # Create your models here.
