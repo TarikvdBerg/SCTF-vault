@@ -1,9 +1,9 @@
 from django.contrib import admin
-from FileManager.models import AccessRight, Folder, File
+from FileManager.models import AccessRights, Folder, File
 # Register your models here.
 
-@admin.register(AccessRight)
-class AccessRightAdmin(admin.ModelAdmin):
+@admin.register(AccessRights)
+class AccessRightsAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Folder)
