@@ -9,7 +9,7 @@ from Admin.models import Share
 
 
 # Create your models here.
-class AccessRights(models.Model):
+class AccessRight(models.Model):
     NO_ACCESS = 'NA'
     READ_ONLY = 'RO'
     WRITE_ONLY = 'WO'
