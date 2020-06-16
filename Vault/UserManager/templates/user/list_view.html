@@ -1,19 +1,15 @@
+{% extends 'core.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
-    {% load static %}
-    {% load bootstrap4 %}
-    {% bootstrap_css %}
-    {% bootstrap_javascript jquery='full' %}
-    {% load fontawesome_5 %}
+{% load static %}
+{% load bootstrap4 %}
+{% load fontawesome_5 %}
 
-    <meta charset="UTF-8">
-    <title>User management</title>
 
-</head>
-<body>
+{% load static %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block body %}
 <nav class="navbar navbar-light navbar-expand-lg justify-content-right" style="background-color: white;">
     <span class="navbar-brand mb-0 h1">User Management</span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -41,7 +37,9 @@
         </ul>
     </div>
 </nav>
-<hr color="#00B2FF">
+
+<div class="wrapper">
+    {% include 'partials/sidebar.html' %}
 
 <table id="userTable" class="table table-hover">
     <thead>
@@ -69,5 +67,6 @@
         $('#userTable').DataTable();
     });
 </script>
-</body>
-</html>
+</div>
+
+{% endblock body %}

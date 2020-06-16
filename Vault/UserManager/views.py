@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User, Group
 import logging
@@ -55,17 +55,29 @@ class ViewUsersView(TemplateView, LoginRequiredMixin):
 class ViewSingleUserView(TemplateView, LoginRequiredMixin):
     template_name = "user/single_user.html"
 
-class AddSingleUserView(FormView):
+class AddSingleUserView(View):
     model = User
-    template_name = "user/add_user.html"
     form_class = addUserForm
-    success_url = '/add'
+    initial = {'key': 'value'}
+    template_name = "user/add_user.html"
 
-    def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
-        form.send_email()
-        return super().form_valid(form)
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            print(cd)
+            return HttpResponseRedirect('/users/add')
+        return render(request, self.template_name, {'form': form})
+
+
+
+
+
+
 
 class EditSingleUserView(TemplateView, LoginRequiredMixin):
     template_name = "user/edit_user.html"
