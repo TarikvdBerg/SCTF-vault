@@ -69,7 +69,13 @@ class AddSingleUserView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            print(cd)
+            User.objects.create_user(username=cd['email'],
+                                            email=cd['email'],
+                                            password=['temp_password'],
+                                            first_name=cd['firstName'],
+                                            last_name=cd['lastName'])
+
+
             return HttpResponseRedirect('/users/add')
         return render(request, self.template_name, {'form': form})
 
