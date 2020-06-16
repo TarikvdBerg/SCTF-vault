@@ -10,7 +10,7 @@ table {
 }
 
 table th {
-    color: #00B2FF; 
+    color: #00B2FF;
     padding-bottom: 15px;
 }
 
@@ -29,4 +29,26 @@ table td {
 table tr:not(:first-child):hover {
     background-color: #00B2FF;
     color: white;
+}
+.form-group label{
+  display: none;
+}
+.login-h1{
+  color: #00B2FF;
+}
+.login-h1::before{
+  content: "\f0c2";
+  font-family: "Font Awesome 5 Brands";
+}
+.btn-primary{
+  background-color: #00B2FF;
+  border: none;
+  border-radius: 0px;
+  box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.75);
+}
+.btn-primary:hover{
+  background-color: #008bc7;
+}
+.login-div{
+  text-align: right;
 }

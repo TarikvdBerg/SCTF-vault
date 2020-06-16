@@ -29,7 +29,7 @@ class AccessRights(models.Model):
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.UUIDField() # ID of the File or Folder
-    content_object = GenericForeignKey() # Type of object for the File or Folder
+    # content_object = GenericForeignKey() # Type of object for the File or Folder
 
 class UploadsMetaData(models.Model):
     size = models.IntegerField()
