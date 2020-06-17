@@ -16,3 +16,5 @@ class Command(BaseCommand):
         object_id="2fb43a0f-b4ce-4fff-bf12-1aa9bd308cec",
         # content_object=content_object, 
         content_type=CT)
+
+        # Function is kept here for later use.
