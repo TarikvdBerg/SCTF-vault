@@ -1,18 +1,18 @@
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User, Group
-import logging
-
 from django.contrib.auth.forms import AuthenticationForm
-
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
-
-from django.shortcuts import HttpResponse
+from django.shortcuts import HttpResponse, render
+from django.http import HttpResponseRedirect
+from django.template.loader import render_to_string, get_template
+from django.core.mail import send_mail
+from django.utils.encoding import force_bytes, force_text
 
 from .forms import addUserForm
-from django.http import HttpResponseRedirect
 
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -79,12 +79,6 @@ class AddSingleUserView(View):
             return HttpResponseRedirect('/users/add')
         return render(request, self.template_name, {'form': form})
 
-
-
-
-
-
-
 class EditSingleUserView(TemplateView, LoginRequiredMixin):
     template_name = "user/edit_user.html"
 
@@ -94,3 +88,7 @@ class InactivateUserView(UpdateView, LoginRequiredMixin):
 class DepartmentUserOverview(ListView, LoginRequiredMixin):
     model = Group
     template_name = "user/department_list_view.html"
+
+# --
+
+def SendTemporaryPassword(

@@ -30,3 +30,11 @@ class UserMeta(models.Model):
     @property
     def is_manager(self):
         return self.manager_of_group != None
+
+class TemporaryPassword(models.Model):
+    """The ability to request and send a temporary password for the user."""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    temp_password = models.TextField()
