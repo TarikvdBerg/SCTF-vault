@@ -8,8 +8,9 @@
     <div class="sidebar_header">
         <img src="{% static 'images/user_placeholder.jpg' %}" alt="">
         <div class="personal_info">
-            <p class="username">CurrentUsername</p>
-            <p class="email">CurrentUserEmail</p>
+            {% csrf_token %}
+            <p class="username">{{request.user.username}}</p>
+            <p class="email">{{request.user.email}}</p>
         </div>
     </div>
 
