@@ -13,6 +13,4 @@ urlpatterns = [
     path('inactivate/{user_id}', InactivateUserView.as_view()),
     path('department/{deparment_id}', DepartmentUserOverview.as_view()),
     path('account_overview', AccountInfoView.as_view()),
-    path('accounts/', include('django.contrib.auth.urls')),
-
 ]
