@@ -1,10 +1,13 @@
 import uuid
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.contenttypes.fields import (GenericForeignKey,
                                                 GenericRelation)
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from Admin.models import Share
 
 
@@ -32,12 +35,13 @@ class AccessRights(models.Model):
     # content_object = GenericForeignKey() # Type of object for the File or Folder
 
 class UploadsMetaData(models.Model):
+    name = models.CharField(max_length=1024)
     size = models.IntegerField()
-    location = models.CharField(max_length=512)
-    owner = models.ForeignKey(User, on_delete=models.PROTECT)
+    location = models.CharField(max_length=512, blank=True, null=True)
+    owner = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True)
     created = models.DateTimeField(auto_now=True)
-    opened = models.DateTimeField()
-    edited = models.DateTimeField()
+    opened = models.DateTimeField(auto_now=True)
+    edited = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
@@ -47,8 +51,33 @@ class Folder(UploadsMetaData):
 
     parent_folder = models.ForeignKey('Folder', blank=True, null=True, on_delete=models.CASCADE)
 
+    personal_vault_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name="personal_user")
+    department_vault = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, blank=True)
+
 class File(UploadsMetaData):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    parent_folder = models.ForeignKey(Folder, on_delete=models.CASCADE)
+    parent_folder = models.ForeignKey('Folder', on_delete=models.CASCADE)
     
+# Create Folder for New User
+@receiver(post_save, sender=User)
+def user_post_save_receiver(sender, instance, created, **kwargs):
+    if created:
+        Folder(
+            name=instance.username,
+            size=0,
+            owner=instance,
+            parent_folder=None,
+            personal_vault_user=instance
+        ).save()
+
+# Create Folder for New Group
+@receiver(post_save, sender=Group)
+def group_post_save_receiver(sender, instance, created, **kwargs):
+    if created:
+        Folder(
+            name=instance.name,
+            size=0,
+            parent_folder=None,
+            department_vault=instance
+        ).save()

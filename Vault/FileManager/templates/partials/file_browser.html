@@ -2,11 +2,21 @@
 {% load fontawesome_5 %}
 
 <link rel="stylesheet" href="{% static 'css/file_browser.css' %}">
+<script src="{% static 'js/file_browser.js' %}"></script>
+
+<script>
+    var FILE_ICON = '{% fa5_icon "file" "far" size="fa-3x" %}'
+    var FOLDER_ICON = '{% fa5_icon "folder" "far" size="fa-3x" %}'
+    var CURRENT_FOLDER = "{{target_folder}}"
+
+    UpdateFileBrowser(CURRENT_FOLDER)
+</script>
+
 <div id="file_manager">
     <div id="hotbar">
         <div id="filepath">
             {% fa5_icon 'sitemap' 'fas' %}
-            <p>/user_vault/folder/</p>
+            <p>Loading...</p>
         </div>
 
         <div id="actions">
@@ -34,46 +44,23 @@
                 {% fa5_icon 'trash-alt' 'fas' %}
                 <p>Delete</p>
             </a>
+            <a href="#" class="action">
+                {% fa5_icon 'plus' 'fas' %}
+                <p>Add Folder</p>
+            </a>
         </div>
 
     </div>
 
     <div id="browser">
         <table>
-            <tr>
+            <tr id="header">
                 <th></th>
                 <th>Name {% fa5_icon 'chevron-down' 'fa' %}</th>
                 <th>Last Modified {% fa5_icon 'chevron-down' 'fa' %}</th>
                 <th>Type {% fa5_icon 'chevron-down' 'fa' %}</th>
                 <th>Size {% fa5_icon 'chevron-down' 'fa' %}</th>
-                <th>Last Modified By {% fa5_icon 'chevron-down' 'fa' %}</th>
-            </tr>
-            
-            <tr>
-                <td>{% fa5_icon 'folder' 'far' size='fa-3x' %}</td>
-                <td>..</td>
-                <td>-</td>
-                <td>Folder</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-
-            <tr>
-                <td>{% fa5_icon 'folder' 'far' size='fa-3x' %}</td>
-                <td>Homework</td>
-                <td>30-05-2020 10:45</td>
-                <td>Folder</td>
-                <td>2,5TB</td>
-                <td>John Doe</td>
-            </tr>
-
-            <tr>
-                <td>{% fa5_icon 'file' 'far' size='fa-3x' %}</td>
-                <td>Secret Links.xlsx</td>
-                <td>30-05-2020 10:50</td>
-                <td>File</td>
-                <td>2MB</td>
-                <td>John Doe</td>
+                <th>Owned By {% fa5_icon 'chevron-down' 'fa' %}</th>
             </tr>
         </table>
     </div>

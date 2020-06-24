@@ -8,20 +8,23 @@
     <div class="sidebar_header">
         <img src="{% static 'images/user_placeholder.jpg' %}" alt="">
         <div class="personal_info">
-            <p class="username">CurrentUsername</p>
-            <p class="email">CurrentUserEmail</p>
+            {% csrf_token %}
+            <p class="username">{{request.user.username}}</p>
+            <p class="email">{{request.user.email}}</p>
         </div>
     </div>
 
     <ul class="list-unstyled components vault_links">
         <li class="sidebar_link">
             {% fa5_icon 'folder' 'far' size="fa-4x" %}
-            <a href="/files/">Personal Vault</a>
+            <a href="/files/personal/">Personal Vault</a>
         </li>
+        {% for g in user.groups.all %}
         <li class="sidebar_link">
             {% fa5_icon 'folder' 'far' size="fa-4x" %}
-            <a href="#">Department Vault</a>
+            <a href="/files/department/{{g.name}}/">{{g.name}}</a>
         </li>
+        {% endfor %}
         <li class="sidebar_link">
             {% fa5_icon 'file' 'far' size="fa-4x" %}
             <a href="#">Dangling Files</a>

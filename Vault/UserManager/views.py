@@ -1,18 +1,22 @@
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User, Group
-import logging
-
 from django.contrib.auth.forms import AuthenticationForm
-
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
-
-from django.shortcuts import HttpResponse
+from django.shortcuts import HttpResponse, render
+from django.http import HttpResponseRedirect
+from django.template.loader import render_to_string, get_template
+from django.core.mail import send_mail
+from django.utils.encoding import force_bytes, force_text
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 from .forms import addUserForm
-from django.http import HttpResponseRedirect
+from UserManager.models import TemporaryPassword
+from Vault.settings import EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_HOST_USER, EMAIL_PORT, EMAIL_USE_TLS
 
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -79,12 +83,6 @@ class AddSingleUserView(View):
             return HttpResponseRedirect('/users/add')
         return render(request, self.template_name, {'form': form})
 
-
-
-
-
-
-
 class EditSingleUserView(TemplateView, LoginRequiredMixin):
     template_name = "user/edit_user.html"
 
@@ -94,3 +92,32 @@ class InactivateUserView(UpdateView, LoginRequiredMixin):
 class DepartmentUserOverview(ListView, LoginRequiredMixin):
     model = Group
     template_name = "user/department_list_view.html"
+
+# --
+
+@receiver(post_save, sender=AddSingleUserView)
+def SendTemporaryPassword(sender, created, instance, **kwargs):
+    """Generates and sends a temporary password for the user."""
+
+    if created:
+
+        for user in users:
+            password = User.objects.make_random_password()
+            user.set_password(password)
+
+        TP = TemporaryPassword(user=instance, email=instance.email, temp_password=password)
+        TP.save()
+
+        send_mail(subject="Your temporary password has arrived!",
+                  from_email=EMAIL_HOST,
+                  recipient_list=[instance.email],
+
+                  message=render_to_string("temporary_password.txt", {
+                      'user': instance.username,
+                      'temp_password': password
+                  }),
+                  
+                  fail_silently=False,
+                  auth_user=EMAIL_HOST_USER,
+                  auth_password=EMAIL_HOST_PASSWORD)
+

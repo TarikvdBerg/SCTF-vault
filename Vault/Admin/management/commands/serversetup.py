@@ -11,6 +11,7 @@ class Command(BaseCommand):
         groups = [
             "Administrators",
             "Human Resources",
+            "I.T",
             "Unassigned"
         ]
 
@@ -23,9 +24,13 @@ class Command(BaseCommand):
             print(f'Creating Group {g}')
             ng = Group()
             ng.name = g
-            ng.save()
+            try:
+                ng.save()
+            except:
+                pass
         
         # Build Admin User
+        print(f"Creating Administrator with password {admin_user_password}, change the password in production")
         admin_user = User()
         admin_user.username = admin_user_username
         admin_user.set_password(admin_user_password)
