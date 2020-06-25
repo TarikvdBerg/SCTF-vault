@@ -1,7 +1,10 @@
 import datetime
 
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group, User
 from django.core.management.base import BaseCommand, CommandError
+from django.db.utils import IntegrityError
+
+from FileManager.models import Folder
 
 
 class Command(BaseCommand):
@@ -30,10 +33,25 @@ class Command(BaseCommand):
                 pass
         
         # Build Admin User
-        print(f"Creating Administrator with password {admin_user_password}, change the password in production")
-        admin_user = User()
-        admin_user.username = admin_user_username
-        admin_user.set_password(admin_user_password)
-        admin_user.is_superuser = True
-        admin_user.is_staff = True
-        admin_user.save()
+        try:
+            print(f"Creating Administrator with password {admin_user_password}, change the password in production")
+            admin_user = User()
+            admin_user.username = admin_user_username
+            admin_user.set_password(admin_user_password)
+            admin_user.is_superuser = True
+            admin_user.is_staff = True
+            admin_user.save()
+        except IntegrityError:
+            pass
+
+        # Setup dangling dump folder
+        print("Creating dangling files folder")
+        try:
+            Folder(
+                name="Dangling Files",
+                size=0,
+                parent_folder=None,
+                is_dangling_dump=True
+            ).save()
+        except:
+            pass

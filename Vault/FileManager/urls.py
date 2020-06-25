@@ -2,6 +2,7 @@ from django.urls import path
 from FileManager.views import *
 
 urlpatterns = [
+    path('dangling/', DanglingFilesView.as_view()),
     path('<folder>/', MainView.as_view()),
     path('department/<department>/', MainView.as_view()),
     path('metadata/{file_id}/', FileMetadataView.as_view()),
@@ -11,5 +12,5 @@ urlpatterns = [
     path('shared_with/{file_id}', WhoSharedWithView.as_view()),
     path('upload_file/', UploadFileModalView.as_view()),
     path('file_info/', FileMetadataView.as_view()),
-    path('file_browser/get_folder_content/', GetFolderContents)
+    path('file_browser/get_folder_content/', GetFolderContents),
 ]

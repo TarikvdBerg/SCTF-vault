@@ -154,7 +154,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 CRONJOBS = [
-    ('*/5 * * * *', 'Admin.cron.UpdateShareStorage')
+    ('*/5 * * * *', 'Admin.cron.UpdateShareStorage'),
+    ('0 0 12 1/1 * ? *', 'Admin.cron.UpdateDanglingFiles')
 ]
 
 LOGIN_REDIRECT_URL = '/'

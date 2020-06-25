@@ -61,6 +61,16 @@ class WhoSharedWithView(ListView, LoginRequiredMixin):
     model = User
     template_name = "file/who_shared_with_modal.html"
 
+class DanglingFilesView(TemplateView, LoginRequiredMixin):
+    template_name = "file/dangling.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['target_folder'] = Folder.objects.get(is_dangling_dump=True).id
+
+        return context
+
 
 def GetFolderContents(request):
     # Retrieve folder id
