@@ -52,9 +52,15 @@ class RegisterView(TemplateView):
 class AccountInfoView(TemplateView):
     template_name = "user/user_account_overview.html"
 
-class ViewUsersView(TemplateView, LoginRequiredMixin):
+class ViewUsersView(View):
     model = User
     template_name = "user/list_view.html"
+
+    def get(self, request, *args, **kwargs):
+        users = User.objects.values('username','is_active')
+        return render(request, self.template_name, {'users': users})
+
+
 
 class ViewSingleUserView(TemplateView, LoginRequiredMixin):
     template_name = "user/single_user.html"

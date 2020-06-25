@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from UserManager.views import *
 
@@ -12,5 +12,5 @@ urlpatterns = [
     #path('edit/{user_id}/', EditSingleUserView.as_view()),
     path('inactivate/{user_id}', InactivateUserView.as_view()),
     path('department/{deparment_id}', DepartmentUserOverview.as_view()),
-    path('account_overview', AccountInfoView.as_view())
+    path('account_overview', AccountInfoView.as_view()),
 ]

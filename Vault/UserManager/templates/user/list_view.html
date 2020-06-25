@@ -10,63 +10,69 @@
 {% bootstrap_javascript jquery='full' %}
 
 {% block body %}
-<nav class="navbar navbar-light navbar-expand-lg justify-content-right" style="background-color: white;">
-    <span class="navbar-brand mb-0 h1">User Management</span>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#">{% fa5_icon 'download' 'fa' %}Info</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-fw fa-edit"></i>Edit</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-fw fa-trash"></i>Delete</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-fw fa-plus-square"></i>New</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-fw fa-user-slash"></i>Inactive</a>
-            </li>
+<link rel="stylesheet" href="{% static 'css/view_all.css' %}">
 
-        </ul>
-    </div>
-</nav>
 
 <div class="wrapper">
     {% include 'partials/sidebar.html' %}
+    <div class="header">
+        <div>
+            <a href="#" class="action">
+                {% fa5_icon 'info' 'fas' %}
+                <p>Info</p>
+            </a>
+        </div>
+        <div>
+            <a href="#" class="action">
+                {% fa5_icon 'edit' 'fas' %}
+                <p>edit</p>
+            </a>
+        </div>
+        <div>
+            <a href="#" class="action">
+                {% fa5_icon 'trash' 'fas' %}
+                <p>delete</p>
+            </a>
+        </div>
+        <div>
+            <a href="#" class="action">
+                {% fa5_icon 'plus' 'fas' %}
+                <p>new</p>
+            </a>
+        </div>
+        <div>
+            <a href="#" class="action">
+                {% fa5_icon 'user-slash' 'fas' %}
+                <p>inactive</p>
+            </a>
+        </div>
 
-<table id="userTable" class="table table-hover">
-    <thead>
-    <tr>
-        <th class="w-10" scope="col">Name</th>
-        <th class="w-10" scope="col">Department</th>
-        <th class="w-10" scope="col">Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Jan Willem</td>
-        <td>HR</td>
-        <td>Active</td>
-    </tr>
-    <tr>
-        <td>Willem Alexander</td>
-        <td>IT</td>
-        <td>inactive</td>
+    </div>
 
-    </tbody>
-</table>
-<script>
-    $(document).ready(function () {
-        $('#userTable').DataTable();
-    });
-</script>
+    <table id="userTable" class="table table-hover">
+        <thead>
+        <tr>
+            <th class="w-10" scope="col">Name</th>
+            <th class="w-10" scope="col">Department</th>
+            <th class="w-10" scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for u in users %}
+        <tr>
+            <td>{{u.username}}</td>
+            <td>{{u.department}}</td>
+            <td>{{u.is_active}}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <script>
+        $(document).ready(function () {
+            $('#userTable').DataTable();
+        });
+    </script>
 </div>
 
 {% endblock body %}

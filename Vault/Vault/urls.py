@@ -22,6 +22,7 @@ urlpatterns = [
     path('users/', include('UserManager.urls')),
     path('files/', include('FileManager.urls')),
     path('admin/', include('Admin.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 
     # Redirect / to /files/personal
     path('', RedirectView.as_view(url="/files/personal"))
