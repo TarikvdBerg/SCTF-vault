@@ -36,6 +36,6 @@ class TemporaryPassword(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    #user = models.ForeignKey(User, on_delete=models.CASCADE)
     email = models.EmailField(('email'), unique=True)
     temp_password = models.TextField()
