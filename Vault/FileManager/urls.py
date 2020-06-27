@@ -1,5 +1,8 @@
 from django.urls import path
+from django.conf.urls.static import static
+
 from FileManager.views import *
+from Vault import settings
 
 urlpatterns = [
     path('dangling/', DanglingFilesView.as_view()),
@@ -15,3 +18,6 @@ urlpatterns = [
     path('f/<folder>/', MainView.as_view()),
     path('folder/', FolderModelView.as_view())
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,8 +3,9 @@ import json
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User, Group
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.files.storage import FileSystemStorage
 from django.forms.models import model_to_dict
-from django.shortcuts import HttpResponse
+from django.shortcuts import HttpResponse, render
 from django.views.generic import (CreateView, DeleteView, ListView,
                                   TemplateView, UpdateView, View)
 
@@ -48,6 +49,18 @@ class DownloadFileModalView(TemplateView, LoginRequiredMixin):
 class UploadFileModalView(TemplateView, LoginRequiredMixin):
     template_name = "file/upload_file_modal.html"
 
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+
+            UploadedFile = request.FILES['document']
+            print(UploadedFile.name)
+            print(UploadedFile.size)
+
+            fs = FileSystemStorage()
+            fs.save(name=UploadedFile.name,
+                    content=UploadedFile)
+
+            return render(request, "file/upload_file_modal.html")
 
 class ShareFileModalView(TemplateView, LoginRequiredMixin):
     template_name = "file/share_file_modal.html"

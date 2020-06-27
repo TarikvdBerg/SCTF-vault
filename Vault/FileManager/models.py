@@ -70,6 +70,10 @@ class Folder(UploadsMetaData):
 class File(UploadsMetaData):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+    document = models.FileField(upload_to='templates')
+    created = models.DateTimeField(auto_now=True)
+    opened = models.DateTimeField(auto_now=True)
+    edited = models.DateTimeField(auto_now=True)
     parent_folder = models.ForeignKey('Folder', on_delete=models.CASCADE)
     
 # Create Folder for New User

@@ -1,0 +1,21 @@
+<!-- templates/registration/login.html -->
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+{% load fontawesome_5 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block content %}
+<div class="d-flex flex-row justify-content-center">
+  <div class="p2 password-div">
+    <h1 class="login-h1">Login</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      {% bootstrap_button "Login" button_type="submit" %}
+    </form>
+  </div>
+</div>
+{% endblock %}
