@@ -26,7 +26,7 @@ table td {
     padding: 5px;
 }
 
-table tr:not(:first-child):hover {
+table tr:not(:first-child):hover,tr:not(:first-child).selected {
     background-color: #00B2FF;
     color: white;
 }

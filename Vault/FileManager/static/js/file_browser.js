@@ -1,3 +1,5 @@
+var currentlySelected = null
+
 function GetFolderContents(fid, sucFunc, failFunc) {
     $.ajax({
         type: "GET",
@@ -25,7 +27,7 @@ function PopulateFileBrowser(data) {
 
     if (data.parent_folder != null) {
         $("#browser table").append(`
-        <tr data-id="${data.parent_folder}" onclick="UpdateFileBrowser('${data.parent_folder}')">
+        <tr data-id="${data.parent_folder}" onclick="RowClick('${data.parent_folder}')">
             <td>${FOLDER_ICON}</td>
             <td>..</td>
             <td></td>
@@ -40,7 +42,7 @@ function PopulateFileBrowser(data) {
 
     data.contained_folders.forEach(function (item, index) {
         $("#browser table").append(`
-        <tr data-id="${item.id}" onclick="UpdateFileBrowser('${item.pk}')">
+        <tr data-id="${item.pk}" onclick="RowClick('${item.pk}')">
             <td>${FOLDER_ICON}</td>
             <td>${item.fields.name}</td>
             <td>${item.fields.edited}</td>
@@ -57,7 +59,7 @@ function PopulateFileBrowser(data) {
             <td>${FILE_ICON}</td>
             <td>${item.fields.name}</td>
             <td>${item.fields.edited}</td>
-            <td>Folder</td>
+            <td>File</td>
             <td>${item.fields.size}</td>
             <td>${item.fields.owner}</td>
         </tr>
@@ -74,6 +76,20 @@ function UpdateFileBrowser(fid) {
     )
 
     CURRENT_FOLDER = fid;
+}
+
+function RowClick(id) {
+    if (currentlySelected != id) {
+        if (currentlySelected != null) {
+            $(`tr[data-id="${currentlySelected}"]`).removeClass("selected")
+        }
+        currentlySelected = id;
+        $(`tr[data-id="${id}"]`).addClass("selected")
+        return;
+    } else {
+        UpdateFileBrowser(id)
+    }
+
 }
 
 function CreateNewFolder(name_input_id) {
