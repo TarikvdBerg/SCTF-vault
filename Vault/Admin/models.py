@@ -39,25 +39,35 @@ class Share(models.Model):
     dictionaries containing both the ID and hash of the file in question. This can be used to
     review if any of the files have been lost but are still stored on disk
     """    
-    def reportFiles(self):
+    def reportFiles(self) -> list:
         file_set = []
         
         for root, dirs, files in os.walk(self.directory):
             for name in files:
-                if name == "control": continue
+                # if name == "control": continue
 
                 with open(root+name, 'r') as f:
                     data = f.read()
 
                     fhash = hashlib.sha1(data.encode()).hexdigest()
-                    print(fhash)
                     file_set.append(
                         {
                             "id": name,
-                            "hash": fhash
+                            "hash": fhash,
+                            "path": self.directory+name
                         }
                     )
+
+        # print(file_set)
         return file_set
+
+    def save(self, *args, **kwargs):
+        
+        if not str(self.directory).endswith(os.path.sep):
+            self.directory += os.path.sep
+        
+        super(Share, self).save(*args, **kwargs)
+
 
 
 

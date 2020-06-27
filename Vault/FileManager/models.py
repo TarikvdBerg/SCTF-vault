@@ -8,7 +8,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from Admin.models import Share
+from Admin.models import Share, LogMessage
 
 
 # Create your models here.
@@ -53,10 +53,27 @@ class Folder(UploadsMetaData):
 
     personal_vault_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name="personal_user")
     department_vault = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, blank=True)
+    is_dangling_dump = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if self.is_dangling_dump:
+            try:
+                Folder.objects.get(is_dangling_dump=True)
+                lm = LogMessage()
+                lm.setMessage("A user tried to create a new dangling files folder, but one already existed. Trashed the new folder.", [])
+                lm.save()
+                return
+            except Folder.DoesNotExist:
+                pass
+        super(Folder, self).save(*args, **kwargs)
 
 class File(UploadsMetaData):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+    document = models.FileField(upload_to='templates')
+    created = models.DateTimeField(auto_now=True)
+    opened = models.DateTimeField(auto_now=True)
+    edited = models.DateTimeField(auto_now=True)
     parent_folder = models.ForeignKey('Folder', on_delete=models.CASCADE)
     
 # Create Folder for New User

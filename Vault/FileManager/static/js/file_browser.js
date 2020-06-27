@@ -70,7 +70,7 @@ function UpdateFileBrowser(fid) {
     GetFolderContents(
         fid,
         PopulateFileBrowser,
-        function () { alert('Failure') }
+        function () {}
     )
 
     CURRENT_FOLDER = fid;

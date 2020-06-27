@@ -83,11 +83,23 @@ class AddSingleUserView(View):
             cd = form.cleaned_data
             User.objects.create_user(username=cd['email'],
                                             email=cd['email'],
-                                            password=['temp_password'],
+                                            password=cd['temp_password'],
                                             first_name=cd['firstName'],
                                             last_name=cd['lastName'])
 
+            send_mail(subject="Your temporary password has arrived!",
+                      from_email=EMAIL_HOST_USER,
+                      recipient_list=[cd['email']],
 
+                      message=render_to_string("temporary_password.txt", {
+                        'user': cd['email'],
+                        'temp_password': cd['temp_password'],
+                        }),
+                  
+                      fail_silently=False,
+                      auth_user=EMAIL_HOST_USER,
+                      auth_password=EMAIL_HOST_PASSWORD)                                
+            
             return HttpResponseRedirect('/users/add')
         return render(request, self.template_name, {'form': form})
 
@@ -100,32 +112,4 @@ class InactivateUserView(UpdateView, LoginRequiredMixin):
 class DepartmentUserOverview(ListView, LoginRequiredMixin):
     model = Group
     template_name = "user/department_list_view.html"
-
-# --
-
-@receiver(post_save, sender=AddSingleUserView)
-def SendTemporaryPassword(sender, created, instance, **kwargs):
-    """Generates and sends a temporary password for the user."""
-
-    if created:
-
-        for user in users:
-            password = User.objects.make_random_password()
-            user.set_password(password)
-
-        TP = TemporaryPassword(user=instance, email=instance.email, temp_password=password)
-        TP.save()
-
-        send_mail(subject="Your temporary password has arrived!",
-                  from_email=EMAIL_HOST,
-                  recipient_list=[instance.email],
-
-                  message=render_to_string("temporary_password.txt", {
-                      'user': instance.username,
-                      'temp_password': password
-                  }),
-                  
-                  fail_silently=False,
-                  auth_user=EMAIL_HOST_USER,
-                  auth_password=EMAIL_HOST_PASSWORD)
 

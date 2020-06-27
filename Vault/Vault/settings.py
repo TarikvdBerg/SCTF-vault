@@ -36,7 +36,7 @@ except KeyError:
 # Email configuration
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'supercybertaskforce@gmail.com'
+EMAIL_HOST_USER = 'supercybertaskforce2@gmail.com'
 EMAIL_HOST_PASSWORD = 'dikkelul'
 EMAIL_USE_TLS = True
 
@@ -90,7 +90,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Vault.wsgi.application'
+WSGI_APPLICATION = 'Vault.wsgi.application' 
 
 
 # Database
@@ -153,8 +153,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 CRONJOBS = [
-    ('*/5 * * * *', 'Admin.cron.UpdateShareStorage')
+    ('*/5 * * * *', 'Admin.cron.UpdateShareStorage'),
+    ('0 0 12 1/1 * ? *', 'Admin.cron.UpdateDanglingFiles')
 ]
 
 LOGIN_REDIRECT_URL = '/'
