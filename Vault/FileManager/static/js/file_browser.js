@@ -19,8 +19,6 @@ function SetBreadCrumb(path) {
 function PopulateFileBrowser(data) {
     data = JSON.parse(data)
 
-    console.log(data)
-
     SetBreadCrumb(data.path)
 
     $("#browser table tr:not(:first-child)").remove();
@@ -81,7 +79,7 @@ function UpdateFileBrowser(fid) {
 function RowClick(id) {
     if (currentlySelected != id) {
         if (currentlySelected != null) {
-            $(`tr[data-id="${currentlySelected}"]`).removeClass("selected")
+            $(`tr[data-id="${currentlySelected}"]`).removeClass()
         }
         currentlySelected = id;
         $(`tr[data-id="${id}"]`).addClass("selected")
@@ -89,7 +87,6 @@ function RowClick(id) {
     } else {
         UpdateFileBrowser(id)
     }
-
 }
 
 function CreateNewFolder(name_input_id) {
@@ -111,10 +108,29 @@ function CreateNewFolder(name_input_id) {
         },
         success: function (data) {
             UpdateFileBrowser(CURRENT_FOLDER)
-            $("#close_modal"). click();
+            $("#close_modal").click();
+            $("#folder_name").val("")
         },
         error: function(xhr) {
             alert('Failed to create folder')
+        }
+    })
+}
+
+function DeleteCurrentlySelectedFolder() {
+    csrf_token = $('input[name="csrfmiddlewaretoken"]').val()
+
+    $.ajax({
+        method: "DELETE",
+        url: `/files/folder/${currentlySelected}/`,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-CSRFToken", csrf_token);
+        },
+        success: function () {
+            UpdateFileBrowser(CURRENT_FOLDER)
+        },
+        error: function() {
+            alert("Failed to delete folder")
         }
     })
 }

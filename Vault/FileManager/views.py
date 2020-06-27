@@ -100,8 +100,19 @@ class FolderModelView(View):
         except Exception as e:
             print(e)
             pass
-        
 
+def DeleteFolderView(request, folder_id):
+        try:
+            Folder.objects.filter(id=folder_id).delete()
+        except Folder.DoesNotExist:
+            return HttpResponse("Already deleted")
+        except Exception as e:
+            return HttpResponse(e)
+
+
+        return HttpResponse("Folder Delted")
+
+        
 def GetFolderContents(request):
     # Retrieve folder id
     folder_id = request.GET.get('fid')
