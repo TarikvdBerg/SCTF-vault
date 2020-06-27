@@ -57,7 +57,9 @@ class ViewUsersView(View):
     template_name = "user/list_view.html"
 
     def get(self, request, *args, **kwargs):
-        users = User.objects.values('username','is_active')
+        users = User.objects.values('username','is_active', 'groups')
+        print(Group.objects.all())
+        print(User.objects.values())
         return render(request, self.template_name, {'users': users})
 
 
