@@ -33,8 +33,9 @@ table tr:not(:first-child):hover {
 .form-group label{
   display: none;
 }
-.login-h1{
+.login-h1, .password-h1{
   color: #00B2FF;
+  text-align: center;
 }
 .login-h1::before{
   content: "\f0c2";
@@ -49,6 +50,15 @@ table tr:not(:first-child):hover {
 .btn-primary:hover{
   background-color: #008bc7;
 }
-.login-div{
+.login-div, .password-div{
   text-align: right;
+}
+
+.password-h1::before{
+  content: "\f084";
+  font-family: "Font Awesome 5 Brands";
+}
+
+.password-div p{
+  text-align: left;
 }
