@@ -25,5 +25,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
 
     # Redirect / to /files/personal
-    path('', RedirectView.as_view(url="/files/personal"))
+    path('', RedirectView.as_view(url="/files/f/personal"))
 ]

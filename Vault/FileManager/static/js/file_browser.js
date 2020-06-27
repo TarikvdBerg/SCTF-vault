@@ -76,6 +76,29 @@ function UpdateFileBrowser(fid) {
     CURRENT_FOLDER = fid;
 }
 
-function GetPersonalVault(uid) {
+function CreateNewFolder(name_input_id) {
+    folder_name = $(name_input_id).val()
+    csrf_token = $('input[name="csrfmiddlewaretoken"]').val()
+
+    if (folder_name == "") {
+        return
+    }
     
+
+    $.ajax({
+        method: "POST",
+        url: "/files/folder/",
+        data: {
+            "folder_name": folder_name,
+            "parent_folder": CURRENT_FOLDER,
+            "csrfmiddlewaretoken": csrf_token
+        },
+        success: function (data) {
+            UpdateFileBrowser(CURRENT_FOLDER)
+            $("#close_modal"). click();
+        },
+        error: function(xhr) {
+            alert('Failed to create folder')
+        }
+    })
 }

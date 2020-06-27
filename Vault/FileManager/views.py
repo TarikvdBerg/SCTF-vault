@@ -6,7 +6,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.forms.models import model_to_dict
 from django.shortcuts import HttpResponse
 from django.views.generic import (CreateView, DeleteView, ListView,
-                                  TemplateView, UpdateView)
+                                  TemplateView, UpdateView, View)
 
 from FileManager.models import Folder, File
 from django.core import serializers
@@ -71,6 +71,23 @@ class DanglingFilesView(TemplateView, LoginRequiredMixin):
 
         return context
 
+
+class FolderModelView(View):
+    def post(self, *args, **kwargs):
+        try:
+            pf = Folder.objects.get(id=self.request.POST.get('parent_folder'))
+            print(pf.id)
+            f = Folder(
+                name=self.request.POST.get('folder_name'),
+                parent_folder=pf,
+                size=0,
+                owner=self.request.user
+            ).save()
+            return HttpResponse("Ok")
+        except Exception as e:
+            print(e)
+            pass
+        
 
 def GetFolderContents(request):
     # Retrieve folder id

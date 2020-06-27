@@ -12,5 +12,6 @@ urlpatterns = [
     path('upload_file/', UploadFileModalView.as_view()),
     path('file_info/', FileMetadataView.as_view()),
     path('file_browser/get_folder_content/', GetFolderContents),
-    path('/f/<folder>/', MainView.as_view()),
+    path('f/<folder>/', MainView.as_view()),
+    path('folder/', FolderModelView.as_view())
 ]
