@@ -37,7 +37,6 @@ class MainView(TemplateView, LoginRequiredMixin):
         return context
     
 
-
 class FileMetadataView(TemplateView, LoginRequiredMixin):
     template_name = "file/file_metadata_view.html"
 
@@ -53,12 +52,21 @@ class UploadFileModalView(TemplateView, LoginRequiredMixin):
         if request.method == 'POST':
 
             UploadedFile = request.FILES['document']
+            pf = Folder.objects.get(name='pf')
+            print(pf.id)
+
             print(UploadedFile.name)
             print(UploadedFile.size)
 
             fs = FileSystemStorage()
             fs.save(name=UploadedFile.name,
                     content=UploadedFile)
+
+            F = File(name=UploadedFile.name,
+                     document=UploadedFile,
+                     size=UploadedFile.size,
+                     owner=self.request.user,
+                     parent_folder=pf).save()
 
             return render(request, "file/upload_file_modal.html")
 
