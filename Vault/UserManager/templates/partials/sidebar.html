@@ -1,6 +1,7 @@
 {% load static %}
 {% load bootstrap4 %}
 {% load fontawesome_5 %}
+{% load auth_extras %}
 
 <link rel="stylesheet" href="{% static 'sidebar.css' %}">
 
@@ -25,17 +26,23 @@
             <a href="/files/department/{{g.name}}/">{{g.name}}</a>
         </li>
         {% endfor %}
+
+        {% if request.user|has_group:"Human Resources" %}
+        <li class="sidebar_link">
+            {% fa5_icon 'users' 'fas' size="fa-4x" %}
+            <a href="/users/view_all/">User Management</a>
+        </li>
+        {% endif %}
+        
+        {% if request.user.is_staff %}
         <li class="sidebar_link">
             {% fa5_icon 'file' 'far' size="fa-4x" %}
             <a href="/files/dangling/">Dangling Files</a>
         </li>
         <li class="sidebar_link">
-            {% fa5_icon 'users' 'fas' size="fa-4x" %}
-            <a href="/users/view_all/">User Management</a>
-        </li>
-        <li class="sidebar_link">
             {% fa5_icon 'database' 'fas' size="fa-4x" %}
             <a href="/admin/">Admininistration</a>
         </li>
+        {% endif %}
     </ul>
 </nav>
