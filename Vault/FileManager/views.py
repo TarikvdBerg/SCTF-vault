@@ -44,6 +44,9 @@ class FileMetadataView(TemplateView, LoginRequiredMixin):
 class DownloadFileModalView(TemplateView, LoginRequiredMixin):
     template_name = "file/download_file_modal.html"
 
+    # Questions to ask:
+    # Can you only download a file if you have ownership over it?
+    # Can you download a file when this is shared with you? How?
 
 class UploadFileModalView(TemplateView, LoginRequiredMixin):
     template_name = "file/upload_file_modal.html"
@@ -51,6 +54,7 @@ class UploadFileModalView(TemplateView, LoginRequiredMixin):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
 
+            # Check for a better design process to select parent folder.
             UploadedFile = request.FILES['document']
             pf = Folder.objects.get(name='pf')
             print(pf.id)
@@ -58,17 +62,13 @@ class UploadFileModalView(TemplateView, LoginRequiredMixin):
             print(UploadedFile.name)
             print(UploadedFile.size)
 
-            fs = FileSystemStorage()
-            fs.save(name=UploadedFile.name,
-                    content=UploadedFile)
-
             F = File(name=UploadedFile.name,
                      document=UploadedFile,
                      size=UploadedFile.size,
                      owner=self.request.user,
                      parent_folder=pf).save()
 
-            return render(request, "file/upload_file_modal.html")
+            return HttpResponse("You have successfully uploaded your file.")
 
 class ShareFileModalView(TemplateView, LoginRequiredMixin):
     template_name = "file/share_file_modal.html"
@@ -113,16 +113,16 @@ def DeleteFolderView(request, folder_id):
         try:
             f = Folder.objects.get(id=folder_id)
             if f.is_root_folder:
-                return HttpResponse("Can't delete root folders")
+                return HttpResponse("Can't delete root folders.")
 
             f.delete()
         except Folder.DoesNotExist:
-            return HttpResponse("Already deleted")
+            return HttpResponse("Already deleted.")
         except Exception as e:
             return HttpResponse(e)
 
 
-        return HttpResponse("Folder Delted")
+        return HttpResponse("Folder deleted.")
 
         
 def GetFolderContents(request):
