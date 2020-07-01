@@ -67,6 +67,13 @@ class Folder(UploadsMetaData):
                 pass
         super(Folder, self).save(*args, **kwargs)
 
+    @property
+    def is_root_folder(self):
+        if self.personal_vault_user == None and self.department_vault == None and self.is_dangling_dump == False:
+            return False
+        else:
+            return True
+
 class File(UploadsMetaData):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 

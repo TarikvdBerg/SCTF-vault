@@ -111,7 +111,11 @@ class FolderModelView(View):
 
 def DeleteFolderView(request, folder_id):
         try:
-            Folder.objects.filter(id=folder_id).delete()
+            f = Folder.objects.get(id=folder_id)
+            if f.is_root_folder:
+                return HttpResponse("Can't delete root folders")
+
+            f.delete()
         except Folder.DoesNotExist:
             return HttpResponse("Already deleted")
         except Exception as e:
