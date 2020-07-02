@@ -29,7 +29,7 @@ class Share(models.Model):
     @property
     def storagePercentageUsed(self):        
         # Caclulate storage percentage used
-        return 0;
+        return self.used_storage / self.total_storage
 
     def updateAvailableStorage(self):
         self.total_storage, self.used_storage, self.free_storage = shutil.disk_usage(self.directory)

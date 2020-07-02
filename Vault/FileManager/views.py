@@ -154,10 +154,20 @@ def GetFolderContents(request):
     
     path = "/".join(directories[::-1])
 
+    contained_folders_json = json.loads(serializers.serialize('json', contained_folders))
+    for i in contained_folders_json:
+        owner = User.objects.get(id=i['fields']["owner"])
+        i['fields']["owner"] = f"{owner.first_name} {owner.last_name}"
+
+    contained_files_json = json.loads(serializers.serialize('json', contained_files))
+    for i in contained_files_json:
+        owner = User.objects.get(id=i['fields']["owner"])
+        i['fields']["owner"] = f"{owner.first_name} {owner.last_name}"
+
     resp_dict = {
         "parent_folder": parent_folder if parent_folder == None else parent_folder.id,
-        "contained_folders": json.loads(serializers.serialize('json', contained_folders)),
-        "contained_files": json.loads(serializers.serialize('json', contained_files)),
+        "contained_folders": contained_folders_json,
+        "contained_files": contained_files_json,
         "path": path
     }
 

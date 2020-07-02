@@ -38,6 +38,8 @@ class Command(BaseCommand):
             admin_user = User()
             admin_user.username = admin_user_username
             admin_user.set_password(admin_user_password)
+            admin_user.first_name = "Admin"
+            admin_user.last_name = "Istrator"
             admin_user.is_superuser = True
             admin_user.is_staff = True
             admin_user.save()
