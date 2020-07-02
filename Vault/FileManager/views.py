@@ -44,20 +44,26 @@ class FileMetadataView(TemplateView, LoginRequiredMixin):
 class DownloadFileModalView(TemplateView, LoginRequiredMixin):
     template_name = "file/download_file_modal.html"
 
-    # Questions to ask:
-    # Can you only download a file if you have ownership over it?
-    # Can you download a file when this is shared with you? How?
+    def get(self, request, file_id):
+
+        if request.method == 'GET':
+
+            FileID = self.file_id
+
+            
 
 class UploadFileModalView(TemplateView, LoginRequiredMixin):
     template_name = "file/upload_file_modal.html"
 
     def post(self, request, *args, **kwargs):
+
         if request.method == 'POST':
 
-            # Check for a better design process to select parent folder.
             UploadedFile = request.FILES['document']
-            pf = Folder.objects.get(name='pf')
-            print(pf.id)
+            ParentFolder = request.POST.get['UUID']
+
+            # pf = Folder.objects.get(name='pf')
+            # print(pf.id)
 
             print(UploadedFile.name)
             print(UploadedFile.size)
@@ -66,7 +72,7 @@ class UploadFileModalView(TemplateView, LoginRequiredMixin):
                      document=UploadedFile,
                      size=UploadedFile.size,
                      owner=self.request.user,
-                     parent_folder=pf).save()
+                     parent_folder=ParentFolder).save()
 
             return HttpResponse("You have successfully uploaded your file.")
 
