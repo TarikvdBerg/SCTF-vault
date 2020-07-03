@@ -44,6 +44,18 @@ class FileMetadataView(TemplateView, LoginRequiredMixin):
 class DownloadFileModalView(TemplateView, LoginRequiredMixin):
     template_name = "file/download_file_modal.html"
 
+    def get(self, request, *args, **kwargs):
+
+        if request.method == 'GET':
+
+            FileID = self.kwargs['file_id']
+            Object = File.objects.get(id=FileID)
+
+            response = HttpResponse(Object)
+            response['Content-Disposition'] = 'attachment; filename=%s' % Object
+
+            return response
+
 class UploadFileModalView(TemplateView, LoginRequiredMixin):
     template_name = "file/upload_file_modal.html"
 
