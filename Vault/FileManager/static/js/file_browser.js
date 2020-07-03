@@ -134,3 +134,17 @@ function DeleteCurrentlySelectedFolder() {
         }
     })
 }
+
+$("#fileUploadForm").on('submit', (event) => {
+    console.log(event)
+})
+
+// Hijack upload form submission to add current folder to form
+function testFunc () {
+    alert("Here")
+
+    $("#upload_folder_id").val(CURRENT_FOLDER)
+    alert("Inserted UUID")
+
+    return true;
+}

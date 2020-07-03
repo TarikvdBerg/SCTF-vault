@@ -60,7 +60,8 @@ class UploadFileModalView(TemplateView, LoginRequiredMixin):
         if request.method == 'POST':
 
             UploadedFile = request.FILES['document']
-            ParentFolder = request.POST.get['UUID']
+            ParentFolderID = request.POST.get('folder_id')
+            ParentFolder = Folder.objects.get(id=ParentFolderID)
 
             # pf = Folder.objects.get(name='pf')
             # print(pf.id)

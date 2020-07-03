@@ -26,7 +26,7 @@
                 {% fa5_icon 'download' 'fas' %}
                 <p>Download</p>
             </a>
-            <a href="#" class="action">
+            <a href="#" class="action" data-toggle="modal" data-target="#addFileModal">
                 {% fa5_icon 'upload' 'fas' %}
                 <p>Upload</p>
             </a>
@@ -47,7 +47,7 @@
                 <p>Delete</p>
             </a>
 
-            <a href="#" class="action" , data-toggle="modal" data-target="#create_folder_modal">
+            <a href="#" class="action" data-toggle="modal" data-target="#create_folder_modal">
                 {% fa5_icon 'plus' 'fas' %}
                 <p>Add Folder</p>
             </a>
@@ -89,8 +89,34 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="close_modal" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="CreateNewFolder('#folder_name')">Create Fold</button>
+                <button type="button" class="btn btn-primary" onclick="CreateNewFolder('#folder_name')">Create
+                    Fold</button>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addFileModal" tabindex="-1" role="dialog" aria-labelledby="addFileModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addFileModalLabel">Upload File(s)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" enctype="multipart/form-data" action="/files/upload/" onsubmit="event.preventDefault; testFunc()">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <input type="hidden" name="folder_id" id="upload_folder_id" value="">
+                    <input type="file" name="document">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="subm">Upload</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
