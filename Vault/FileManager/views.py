@@ -51,8 +51,10 @@ class DownloadFileModalView(TemplateView, LoginRequiredMixin):
             FileID = self.kwargs['file_id']
             Object = File.objects.get(id=FileID)
 
-            response = HttpResponse(Object)
-            response['Content-Disposition'] = 'attachment; filename=%s' % Object
+            MyDownload = Object.document
+
+            response = HttpResponse(MyDownload)
+            response['Content-Disposition'] = 'attachment; filename=%s' % MyDownload
 
             return response
 
@@ -69,6 +71,10 @@ class UploadFileModalView(TemplateView, LoginRequiredMixin):
 
             print(UploadedFile.name)
             print(UploadedFile.size)
+
+            FS = FileSystemStorage()
+            FS.save(name=UploadedFile.name,
+                    content=UploadedFile)
 
             F = File(name=UploadedFile.name,
                      document=UploadedFile,
