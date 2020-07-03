@@ -44,14 +44,6 @@ class FileMetadataView(TemplateView, LoginRequiredMixin):
 class DownloadFileModalView(TemplateView, LoginRequiredMixin):
     template_name = "file/download_file_modal.html"
 
-    def get(self, request, file_id):
-
-        if request.method == 'GET':
-
-            FileID = self.file_id
-
-            
-
 class UploadFileModalView(TemplateView, LoginRequiredMixin):
     template_name = "file/upload_file_modal.html"
 
@@ -63,9 +55,6 @@ class UploadFileModalView(TemplateView, LoginRequiredMixin):
             ParentFolderID = request.POST.get('folder_id')
             ParentFolder = Folder.objects.get(id=ParentFolderID)
 
-            # pf = Folder.objects.get(name='pf')
-            # print(pf.id)
-
             print(UploadedFile.name)
             print(UploadedFile.size)
 
@@ -75,7 +64,7 @@ class UploadFileModalView(TemplateView, LoginRequiredMixin):
                      owner=self.request.user,
                      parent_folder=ParentFolder).save()
 
-            return HttpResponse("You have successfully uploaded your file.")
+            return render(request, "file/file_overview.html")
 
 class ShareFileModalView(TemplateView, LoginRequiredMixin):
     template_name = "file/share_file_modal.html"

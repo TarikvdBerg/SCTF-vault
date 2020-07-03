@@ -1,7 +1,9 @@
 from django.urls import path
 from django.conf.urls.static import static
+from django_downloadview import ObjectDownloadView
 
 from FileManager.views import *
+from FileManager.models import File
 from Vault import settings
 
 urlpatterns = [
