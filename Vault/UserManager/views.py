@@ -46,13 +46,13 @@ class LoginView(TemplateView):
         context["login_form"] = AuthenticationForm(request=self.request)
         return context
 
-class RegisterView(TemplateView):
+class RegisterView(LoginRequiredMixin, TemplateView):
     template_name = "user/register.html"
 
-class AccountInfoView(TemplateView):
+class AccountInfoView(LoginRequiredMixin, TemplateView):
     template_name = "user/user_account_overview.html"
 
-class ViewUsersView(View):
+class ViewUsersView(LoginRequiredMixin, View):
     model = User
     template_name = "user/list_view.html"
 
@@ -64,10 +64,13 @@ class ViewUsersView(View):
 
 
 
-class ViewSingleUserView(TemplateView, LoginRequiredMixin):
+class ViewSingleUserView(LoginRequiredMixin, TemplateView):
     template_name = "user/single_user.html"
 
-class AddSingleUserView(View):
+
+
+
+class AddSingleUserView(LoginRequiredMixin, View):
     model = User
     form_class = addUserForm
     initial = {'key': 'value'}
@@ -81,11 +84,17 @@ class AddSingleUserView(View):
         form = self.form_class(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
+            print(cd)
             User.objects.create_user(username=cd['email'],
                                             email=cd['email'],
                                             password=cd['temp_password'],
                                             first_name=cd['firstName'],
                                             last_name=cd['lastName'])
+
+            user_id = User.objects.get(username=cd['email']).pk
+            selected_group = Group.objects.get(id='{0}'.format(cd['groups']))
+            selected_group.user_set.add(user_id)
+
 
             send_mail(subject="Your temporary password has arrived!",
                       from_email=EMAIL_HOST_USER,
@@ -101,15 +110,16 @@ class AddSingleUserView(View):
                       auth_password=EMAIL_HOST_PASSWORD)                                
             
             return HttpResponseRedirect('/users/add')
+
         return render(request, self.template_name, {'form': form})
 
-class EditSingleUserView(TemplateView, LoginRequiredMixin):
+class EditSingleUserView(LoginRequiredMixin, TemplateView):
     template_name = "user/edit_user.html"
 
-class InactivateUserView(UpdateView, LoginRequiredMixin):
+class InactivateUserView(LoginRequiredMixin, UpdateView):
     template_name = "user/inactivate_modal.html"
 
-class DepartmentUserOverview(ListView, LoginRequiredMixin):
+class DepartmentUserOverview(LoginRequiredMixin, ListView):
     model = Group
     template_name = "user/department_list_view.html"
 
