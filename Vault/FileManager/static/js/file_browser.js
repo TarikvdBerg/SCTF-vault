@@ -53,7 +53,7 @@ function PopulateFileBrowser(data) {
 
     data.contained_files.forEach(function (item, index) {
         $("#browser table").append(`
-        <tr data-id="${item.id}">
+        <tr data-id="${item.pk}" onclick="FileClick('${item.pk}')">
             <td>${FILE_ICON}</td>
             <td>${item.fields.name}</td>
             <td>${item.fields.edited}</td>
@@ -89,6 +89,20 @@ function RowClick(id) {
     }
 }
 
+function FileClick(id) {
+    if (currentlySelected != id) {
+        if (currentlySelected != null) {
+            $(`tr[data-id="${currentlySelected}"]`).removeClass()
+        }
+        currentlySelected = id;
+        $(`tr[data-id="${id}"]`).addClass("selected")
+        return;
+    } else {
+        UpdateFileBrowser(id)
+    }
+}
+
+
 function CreateNewFolder(name_input_id) {
     folder_name = $(name_input_id).val()
     csrf_token = $('input[name="csrfmiddlewaretoken"]').val()
@@ -96,7 +110,7 @@ function CreateNewFolder(name_input_id) {
     if (folder_name == "") {
         return
     }
-    
+
 
     $.ajax({
         method: "POST",
@@ -131,6 +145,24 @@ function DeleteCurrentlySelectedFolder() {
         },
         error: function() {
             alert("Failed to delete folder")
+        }
+    })
+}
+
+function DeleteCurrentlySelectedFile() {
+    csrf_token = $('input[name="csrfmiddlewaretoken"]').val()
+
+    $.ajax({
+        method: "DELETE",
+        url: `/media/${currentlySelected}/`,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-CSRFToken", csrf_token);
+        },
+        success: function () {
+            UpdateFileBrowser(CURRENT_FOLDER)
+        },
+        error: function() {
+            alert("Failed to delete file")
         }
     })
 }

@@ -16,43 +16,44 @@
 
 <div id="file_manager">
     <div id="hotbar">
-        <div id="filepath">
-            {% fa5_icon 'sitemap' 'fas' %}
-            <p>Loading...</p>
-        </div>
-
-        <div id="actions">
-            <a href="#" class="action">
-                {% fa5_icon 'download' 'fas' %}
-                <p>Download</p>
-            </a>
-            <a href="#" class="action" data-toggle="modal" data-target="#addFileModal">
-                {% fa5_icon 'upload' 'fas' %}
-                <p>Upload</p>
-            </a>
-            <a href="#" class="action">
-                {% fa5_icon 'share-alt' 'fas' %}
-                <p>Share</p>
-            </a>
-            <a href="#" class="action">
-                {% fa5_icon 'info' 'fas' %}
-                <p>Info</p>
-            </a>
-            <a href="#" class="action">
-                {% fa5_icon 'edit' 'fas' %}
-                <p>Edit</p>
-            </a>
-            <a href="#" class="action" onclick="DeleteCurrentlySelectedFolder()">
-                {% fa5_icon 'trash-alt' 'fas' %}
-                <p>Delete</p>
-            </a>
-
-            <a href="#" class="action" data-toggle="modal" data-target="#create_folder_modal">
-                {% fa5_icon 'plus' 'fas' %}
-                <p>Add Folder</p>
-            </a>
-        </div>
-
+      <div id="filepath">
+        {% fa5_icon 'sitemap' 'fas' %}
+        <p>Loading...</p>
+      </div>
+      <div id="actions">
+        <a href="#" class="action">
+            {% fa5_icon 'download' 'fas' %}
+            <p>Download</p>
+        </a>
+        <a href="#" class="action" data-toggle="modal" data-target="#addFileModal">
+            {% fa5_icon 'upload' 'fas' %}
+            <p>Upload</p>
+        </a>
+        <a href="#" class="action">
+            {% fa5_icon 'share-alt' 'fas' %}
+            <p>Share</p>
+        </a>
+        <a href="#" class="action">
+            {% fa5_icon 'info' 'fas' %}
+            <p>Info</p>
+        </a>
+        <a href="#" class="action">
+            {% fa5_icon 'edit' 'fas' %}
+            <p>Edit</p>
+        </a>
+        <a href="#" class="action" onclick="DeleteCurrentlySelectedFolder()">
+            {% fa5_icon 'trash-alt' 'fas' %}
+            <p>Delete</p>
+        </a>
+        <a href="#" class="action" onclick="DeleteCurrentlySelectedFile()">
+            {% fa5_icon 'trash-alt' 'fas' %}
+            <p>Delete</p>
+        </a>
+        <a href="#" class="action" data-toggle="modal" data-target="#create_folder_modal">
+            {% fa5_icon 'plus' 'fas' %}
+            <p>Add Folder</p>
+        </a>
+      </div>
     </div>
 
     <div id="browser">
