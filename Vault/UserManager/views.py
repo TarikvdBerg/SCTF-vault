@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView, View
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
@@ -70,7 +70,8 @@ class ViewSingleUserView(LoginRequiredMixin, TemplateView):
 
 
 
-class AddSingleUserView(LoginRequiredMixin, View):
+class AddSingleUserView(PermissionRequiredMixin, View):
+    permission_required = ('user.can_add',)
     model = User
     form_class = addUserForm
     initial = {'key': 'value'}

@@ -10,7 +10,7 @@ class addUserForm(forms.Form):
     lastName = forms.CharField(label='Last Name', max_length=100,
                                 widget=forms.TextInput(attrs={'class': 'form-controll', 'type': 'text',
                                                               'placeholder': 'Last Name'}))
-    roles = forms.ChoiceField(label='Role', choices=[('admin', 'Admin'), ('manager', 'Manager'), ('user', 'User')])
+    roles = forms.ChoiceField(label='Role', choices=[('admin', 'Admin'), ('manager', 'Manager'), ('user', 'User'), ('hr', 'HR')])
     temp_password = forms.CharField(label='Temp password', max_length=100, widget=forms.TextInput(attrs={
         'class':'form-controll', 'type': 'text', 'placeholder': 'Temp Password'}))
     email = forms.EmailField(label='email', max_length=100, widget=forms.EmailInput(
