@@ -25,7 +25,7 @@ class MainView(TemplateView, LoginRequiredMixin):
                 context['target_folder'] = f.id
         except KeyError:
             pass
-        
+
         try:
             if kwargs['department'] != None:
                 group = Group.objects.get(name=kwargs['department'])
@@ -33,9 +33,9 @@ class MainView(TemplateView, LoginRequiredMixin):
                 context['target_folder'] = f.id
         except KeyError:
             pass
-    
+
         return context
-    
+
 
 class FileMetadataView(TemplateView, LoginRequiredMixin):
     template_name = "file/file_metadata_view.html"
@@ -138,7 +138,19 @@ def DeleteFolderView(request, folder_id):
 
         return HttpResponse("Folder deleted.")
 
-        
+def DeleteFileView(request, file_id):
+        try:
+            f = File.objects.get(id=file_id)
+
+            f.delete()
+        except File.DoesNotExist:
+            return HttpResponse("Already deleted.")
+        except Exception as e:
+            return HttpResponse(e)
+
+
+        return HttpResponse("Folder deleted.")
+
 def GetFolderContents(request):
     # Retrieve folder id
     folder_id = request.GET.get('fid')
@@ -148,7 +160,7 @@ def GetFolderContents(request):
         contained_folders = Folder.objects.filter(parent_folder=folder)
     except Folder.DoesNotExist:
         contained_folders = []
-    
+
     try:
         contained_files = File.objects.filter(parent_folder=folder)
     except File.DoesNotExist:
@@ -156,7 +168,7 @@ def GetFolderContents(request):
 
     parent_folder = folder.parent_folder if folder.parent_folder != None else None
 
-    # Builds the directory Path for the user interface in the form of 
+    # Builds the directory Path for the user interface in the form of
     # /directory/subdirectory/subsubdirectory/
     directories = []
     cf = folder
@@ -165,7 +177,7 @@ def GetFolderContents(request):
         if cf.parent_folder == None:
             break;
         cf = cf.parent_folder
-    
+
     path = "/".join(directories[::-1])
 
     contained_folders_json = json.loads(serializers.serialize('json', contained_folders))
