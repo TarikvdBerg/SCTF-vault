@@ -53,7 +53,7 @@ function PopulateFileBrowser(data) {
 
     data.contained_files.forEach(function (item, index) {
         $("#browser table").append(`
-        <tr data-id="${item.pk}" onclick="FileClick('${item.pk}')">
+        <tr data-id="${item.pk}" onclick="RowClick('${item.pk}')">
             <td>${FILE_ICON}</td>
             <td>${item.fields.name}</td>
             <td>${item.fields.edited}</td>
@@ -77,19 +77,6 @@ function UpdateFileBrowser(fid) {
 }
 
 function RowClick(id) {
-    if (currentlySelected != id) {
-        if (currentlySelected != null) {
-            $(`tr[data-id="${currentlySelected}"]`).removeClass()
-        }
-        currentlySelected = id;
-        $(`tr[data-id="${id}"]`).addClass("selected")
-        return;
-    } else {
-        UpdateFileBrowser(id)
-    }
-}
-
-function FileClick(id) {
     if (currentlySelected != id) {
         if (currentlySelected != null) {
             $(`tr[data-id="${currentlySelected}"]`).removeClass()
@@ -154,7 +141,7 @@ function DeleteCurrentlySelectedFile() {
 
     $.ajax({
         method: "DELETE",
-        url: `/media/${currentlySelected}/`,
+        url: `/files/folder/${currentlySelected}/`,
         beforeSend: function(xhr) {
             xhr.setRequestHeader("X-CSRFToken", csrf_token);
         },

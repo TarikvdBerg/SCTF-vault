@@ -19,6 +19,7 @@ urlpatterns = [
     path('f/<folder>/', MainView.as_view()),
     path('folder/', FolderModelView.as_view()),
     path('folder/<folder_id>/', DeleteFolderView),
+    path('folder/<file_id>/', DeleteFolderView),
 ]
 
 if settings.DEBUG:
