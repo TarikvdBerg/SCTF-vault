@@ -1,0 +1,23 @@
+{% load static %}
+{% load bootstrap4 %}
+{% load fontawesome_5 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Vault{% endblock %}</title>
+
+  <link rel="stylesheet" href="{% static 'core.css' %}">
+</head>
+<body>
+  <main>
+    {% block content %}
+
+    {% endblock %}
+  </main>
+</body>
+</html>

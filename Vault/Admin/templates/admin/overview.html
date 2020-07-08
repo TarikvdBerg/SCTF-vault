@@ -1,0 +1,61 @@
+{% extends 'core.html' %}
+
+{% load static %}
+{% load bootstrap4 %}
+{% load fontawesome_5 %}
+
+
+{% block body %}
+
+<link rel="stylesheet" href="{% static 'css/admin_overview.css' %}">
+
+<div class="wrapper">
+    {% include 'partials/sidebar.html' %}
+
+    <div class="admin_section">
+        <div class="server_view">
+            <div class="view_header">
+                <h1>Server Overview</h1>
+                <a href="/admin/shares/">See All Servers</a>
+            </div>
+
+            <div class="server_container">
+            {% for server in servers %}
+            <div class="server">
+                {% fa5_icon 'database' 'fas' size="fa-4x" %}
+                <div class="server_info">
+                    <p class="server_name">{{ server.server_name }}</p>
+                    <p class="server_storage">{{server.used_storage_gb}}GB/{{server.total_storage_gb}}GB</p>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+
+        <div class="log_view">
+            <div class="view_header">
+                <h1>Latest Warnings</h1>
+                <a href="/admin/log_messages/">See All Log Messages</a>
+            </div>
+
+            <table class="log_table">
+                <tr>
+                    <th>Activity Type {% fa5_icon 'chevron-down' 'fa' %} </th>
+                    <th>Message {% fa5_icon 'chevron-down' 'fa' %}</th>
+                    <th>Timestamp {% fa5_icon 'chevron-down' 'fa' %}</th>
+                    <th>Warning Level {% fa5_icon 'chevron-down' 'fa' %}</th>
+                </tr>
+                {% for log in log_messages %}
+                <tr>
+                    <td>{{log.get_activity_type_display}}</td>
+                    <td>{{log.getFormatedMessage}}</td>
+                    <td>{{log.timestamp}}</td>
+                    <td>{{log.get_warning_level_display}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

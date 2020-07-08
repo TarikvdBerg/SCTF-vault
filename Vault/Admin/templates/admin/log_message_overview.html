@@ -1,0 +1,61 @@
+{% extends 'core.html' %}
+
+{% load static %}
+{% load bootstrap4 %}
+{% load fontawesome_5 %}
+
+
+{% block body %}
+
+<link rel="stylesheet" href="{% static 'css/log_overview.css' %}">
+
+<div class="wrapper">
+    {% include "partials/sidebar.html" %}
+
+    <div class="log_view">
+        <div class="header">
+            <h1>Activity Log</h1>
+        </div>
+        
+        <div class="search_input">
+            <input type="search" name="search_log" id="search_log" placeholder="Search">
+            <a href="#">
+                {% fa5_icon 'search' 'fa' %}
+            </a>
+        </div>
+
+        <table>
+            <tr>
+                <th>Activity Type {% fa5_icon 'chevron-down' 'fa' %} </th>
+                <th>Message {% fa5_icon 'chevron-down' 'fa' %}</th>
+                <th>Timestamp {% fa5_icon 'chevron-down' 'fa' %}</th>
+                <th>Warning Level {% fa5_icon 'chevron-down' 'fa' %}</th>
+            </tr>
+
+            <tr>
+                <td>User Created</td>
+                <td>Administration User Has Been Made</td>
+                <td>Now</td>
+                <td>No Warning All Good</td>
+            </tr>
+
+            <tr>
+                <td>User Created</td>
+                <td>Administration User Has Been Made</td>
+                <td>Now</td>
+                <td>No Warning All Good</td>
+            </tr>
+
+            <tr>
+                <td>User Created</td>
+                <td>Administration User Has Been Made</td>
+                <td>Now</td>
+                <td>No Warning All Good</td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock body %}

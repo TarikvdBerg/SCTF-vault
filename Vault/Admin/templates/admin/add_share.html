@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% load bootstrap4 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery='full' %}
+
+  <title>Add Share Page</title>
+</head>
+
+<body>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddShareModal">
+    Add Share
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="AddShareModal" tabindex="-1" role="dialog" aria-labelledby="AddShareModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="AddShareModalLabel">Add Share</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="post">
+          <div class="modal-body">
+
+            {% csrf_token %}
+
+            {% bootstrap_form_errors form %}
+            {% bootstrap_form form %}
+
+            <!-- </div> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          {% bootstrap_button "Add Share" button_type="submit" %}
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+</body>
+
+</html>

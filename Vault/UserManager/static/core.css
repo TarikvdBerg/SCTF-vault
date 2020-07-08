@@ -1,0 +1,64 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+
+table {
+    width: 100%
+}
+
+table th {
+    color: #00B2FF;
+    padding-bottom: 15px;
+}
+
+table tr {
+    border: 1px solid white;
+}
+
+table tr:nth-child(2n) {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+table td {
+    padding: 5px;
+}
+
+table tr:not(:first-child):hover,tr:not(:first-child).selected {
+    background-color: #00B2FF;
+    color: white;
+}
+.form-group label{
+  display: none;
+}
+.login-h1, .password-h1{
+  color: #00B2FF;
+  text-align: center;
+}
+.login-h1::before{
+  content: "\f0c2";
+  font-family: "Font Awesome 5 Brands";
+}
+.btn-primary{
+  background-color: #00B2FF;
+  border: none;
+  border-radius: 0px;
+  box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.75);
+}
+.btn-primary:hover{
+  background-color: #008bc7;
+}
+.login-div, .password-div{
+  text-align: right;
+}
+
+.password-h1::before{
+  content: "\f084";
+  font-family: "Font Awesome 5 Brands";
+}
+
+.password-div p{
+  text-align: left;
+}

@@ -1,0 +1,27 @@
+.log_view {
+    margin-top: 2em;
+    margin-left: 2em;
+    width: 70%;
+}
+
+.log_view .header {
+    width: 100%;
+    border-bottom: 1px solid #00B2FF;
+    margin-bottom: 3em;
+}
+
+.log_view h1 {
+    color: #00B2FF;
+}
+
+.log_view input {
+    border: none;
+}
+
+.log_view .search_input {
+    margin-bottom: 3em;
+    border: 1px solid #00B2FF;
+    border-radius: 10px;
+    padding: 10px;
+    width: 16em;
+}

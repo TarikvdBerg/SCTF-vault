@@ -1,0 +1,78 @@
+{% extends 'core.html' %}
+
+{% load static %}
+{% load bootstrap4 %}
+{% load fontawesome_5 %}
+
+
+{% load static %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/view_all.css' %}">
+
+
+<div class="wrapper">
+    {% include 'partials/sidebar.html' %}
+    <div class="header">
+        <div>
+            <a href="#" class="action">
+                {% fa5_icon 'info' 'fas' %}
+                <p>Info</p>
+            </a>
+        </div>
+        <div>
+            <a href="#" class="action">
+                {% fa5_icon 'edit' 'fas' %}
+                <p>edit</p>
+            </a>
+        </div>
+        <div>
+            <a href="#" class="action">
+                {% fa5_icon 'trash' 'fas' %}
+                <p>delete</p>
+            </a>
+        </div>
+        <div>
+            <a href="#" class="action">
+                {% fa5_icon 'plus' 'fas' %}
+                <p>new</p>
+            </a>
+        </div>
+        <div>
+            <a href="#" class="action">
+                {% fa5_icon 'user-slash' 'fas' %}
+                <p>inactive</p>
+            </a>
+        </div>
+
+    </div>
+
+    <table id="userTable" class="table table-hover">
+        <thead>
+        <tr>
+            <th class="w-10" scope="col">Name</th>
+            <th class="w-10" scope="col">Department</th>
+            <th class="w-10" scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for u in users %}
+        <tr>
+            <td>{{u.username}}</td>
+            <td>{{u.groups}}</td>
+            <td>{{u.is_active}}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <script>
+        $(document).ready(function () {
+            $('#userTable').DataTable();
+        });
+    </script>
+</div>
+
+{% endblock body %}

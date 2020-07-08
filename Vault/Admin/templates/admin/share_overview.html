@@ -1,0 +1,63 @@
+{% extends "core.html" %}
+
+{% load static %}
+{% load bootstrap4 %}
+{% load fontawesome_5 %}
+
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/admin_overview.css' %}">
+<div class="wrapper">
+    {% include "partials/sidebar.html" %}
+
+    <div class="server_view admin_section">
+        <div class="view_header">
+            <h1>Server Overview</h1>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddShareModal">
+                Add Share
+            </button>
+        </div>
+
+        <div class="server_container">
+            {% for server in servers %}
+            <div class="server">
+                {% fa5_icon 'database' 'fas' size="fa-4x" %}
+                <div class="server_info">
+                    <p class="server_name">{{ server.server_name }}</p>
+                    <p class="server_storage">{{server.used_storage_gb}}GB/{{server.total_storage_gb}}GB</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="modal fade" id="AddShareModal" tabindex="-1" role="dialog" aria-labelledby="AddShareModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="AddShareModalLabel">Add Share</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/admin/shares/add/" method="post">
+          <div class="modal-body">
+
+            {% csrf_token %}
+
+            {% bootstrap_form_errors form %}
+            {% bootstrap_form form %}
+
+            <!-- </div> -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            {% bootstrap_button "Add Share" button_type="submit" %}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}
